@@ -1,0 +1,43 @@
+version: 0.0.1
+
+spring:
+  datasource:
+    driver-class-name:
+    url:
+    username:
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        show_sql: false
+        format_sql: false
+    open-in-view: false
+  data:
+    redis:
+      #      host: localhost
+      host:
+      port:
+      lettuce:
+        pool:
+          enabled: true
+  banner:
+    location: classpath:banner.txt
+
+logging.level:
+  org.hibernate.SQL: info
+#  org.hibernate.SQL: debug
+# org.hibernate.type: trace
+
+jwt:
+  secret-key:
+  access-token-header:
+  refresh-token-header:
+  access-token-expired: 30 # min
+  refresh-token-expired: 30 # day
+
+logging:
+  level:
+    #    root: debug
+    root: info
