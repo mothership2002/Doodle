@@ -1,2 +1,4 @@
+type Endpoint =
+    ''
 
-export {}
+export default Endpoint;

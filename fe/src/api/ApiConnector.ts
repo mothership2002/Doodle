@@ -1,4 +1,6 @@
 import { Method, Header } from '../model/HttpDomain';
+import Endpoint from "../common/ServerEndpoint";
+import ParentParam from "../model/ParentParam";
 
 const CONTENT_TYPE: string = 'Content-Type';
 const MEDIA_TYPE: string = 'application/json';
@@ -6,19 +8,10 @@ const AUTHORIZATION: string = 'Authorization';
 
 class ApiConnector {
 
-    private static instance: ApiConnector;
     private readonly domain: string;
 
     constructor(domain: string) {
         this.domain = domain;
-    }
-
-    public static getInstance(): ApiConnector {
-        const domain = 'http://localhost:8080';
-        if (!ApiConnector.instance) {
-            ApiConnector.instance = new ApiConnector(domain);
-        }
-        return ApiConnector.getInstance();
     }
 
     /** TODO arg update // additional param - (jwt)
@@ -27,7 +20,7 @@ class ApiConnector {
      * @param method    @ http method
      * @param param     @ object param
      */
-    async call(endPoint: string, method: Method, param: object | null) {
+    async call(endPoint: Endpoint, method: Method, param: ParentParam | null) {
         // TODO TOKEN -> ? axios ?
         const token = null;
         return await fetch(this.domain + endPoint, this.initHttpRequest(method, param, token))
@@ -47,5 +40,8 @@ class ApiConnector {
         }
     }
 }
+const domain = 'http://localhost:8080';
+const instance = new ApiConnector(domain);
+Object.freeze(instance);
 
-export default ApiConnector;
+export { ApiConnector, instance };
