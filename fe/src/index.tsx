@@ -4,6 +4,8 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 import { ApiProvider } from './component/ApiComponentContext';
 import Main from "./page/Main";
+import store from './store/store';
+import {Provider} from "react-redux";
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -11,9 +13,11 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <ApiProvider>
-        <Main />
-    </ApiProvider>
+      <Provider store={store}>
+          <ApiProvider>
+              <Main />
+          </ApiProvider>
+      </Provider>
   </React.StrictMode>
 );
 

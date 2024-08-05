@@ -13,7 +13,7 @@ const Header = () => {
 
     return (
         <header className={getStyle('header')}>
-            <div className={getStyle('logo')}>MyBoard</div>
+            <div className={getStyle('logo')}>Dashboard</div>
             <input type="text" className={getStyle('search-bar')} placeholder="Search..."/>
             <nav className={getStyle('nav-menu')}>
                 <a href="/">Home</a>

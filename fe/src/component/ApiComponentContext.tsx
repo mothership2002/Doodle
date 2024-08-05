@@ -25,5 +25,5 @@ export const useApi = () => {
     if (context === undefined) {
         throw new Error();
     }
-    return context;
+    return context.api;
 };
