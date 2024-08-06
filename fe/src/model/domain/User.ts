@@ -1,4 +1,6 @@
-interface User {
+import ParentParam from "../ParentParam";
+
+interface User extends ParentParam {
     accountNo: number | null;
     account: string | null;
     password: string | null;

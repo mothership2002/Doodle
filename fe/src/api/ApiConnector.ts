@@ -1,6 +1,7 @@
-import { Method, Header } from '../model/HttpDomain';
+import { Method, Header } from '../model/http/HttpDomain';
 import Endpoint from "../common/ServerEndpoint";
 import ParentParam from "../model/ParentParam";
+import Response from "../model/http/Response";
 
 const CONTENT_TYPE: string = 'Content-Type';
 const MEDIA_TYPE: string = 'application/json';
@@ -23,7 +24,7 @@ class ApiConnector {
     async call(endPoint: Endpoint, method: Method, param: ParentParam | null) {
         // TODO TOKEN -> ? axios ?
         const token = null;
-        return await fetch(this.domain + endPoint, this.initHttpRequest(method, param, token))
+        return await fetch(this.domain + endPoint, this.initHttpRequest(method, param, token));
     }
 
     private getHeader(token: string | null): Header {

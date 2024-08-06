@@ -59,13 +59,13 @@ class StringUtils {
     /**
      * 문자열이 공백을 제외한 실제 값을 포함하는지 확인합니다.
      * @param str - 검사할 문자열
-     * @returns 문자열에 공백을 제외한 실제 값이 있으면 true, 그렇지 않으면 false
+     * @returns str or null
      */
-    static hasText(str: string | null): boolean {
+    static hasText(str: string | null): string | null {
         if (str === null) {
-            return false;
+            return null;
         }
-        return str.trim().length > 0;
+        return str;
     }
 }
 

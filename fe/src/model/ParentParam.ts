@@ -1,3 +1,3 @@
-export default abstract class ParentParam {
+export default interface ParentParam {
 
 }
