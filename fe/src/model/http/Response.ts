@@ -1,7 +1,13 @@
 import StatusCode from "./StatusCode";
 import Domain from "../domain/Domain";
 
-interface Response {
+class Response {
+
+    constructor(statusCode: StatusCode, message: string, data: Domain) {
+        this.statusCode = statusCode;
+        this.message = message;
+        this.data = data;
+    }
 
     statusCode: StatusCode;
     message: string;

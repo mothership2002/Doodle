@@ -1,10 +1,13 @@
 import {useEffect} from "react";
 import styles from './css/Header.module.css';
 import useCssUtil from "../hook/useCssUtil";
+import {useSelector} from "react-redux";
+import {RootState} from "../store/store";
 
 const Header = () => {
     // is Useful? ...
     const getStyle = useCssUtil(styles);
+    const auth = useSelector((state: RootState) => state.auth);
 
     // mount
     useEffect(() => {

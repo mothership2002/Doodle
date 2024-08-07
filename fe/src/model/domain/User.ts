@@ -1,6 +1,6 @@
 import ParentParam from "../ParentParam";
 
-interface User extends ParentParam {
+export default interface User extends ParentParam {
     accountNo: number | null;
     account: string | null;
     password: string | null;
@@ -8,5 +8,3 @@ interface User extends ParentParam {
     email: string | null;
     role: string | null;
 }
-
-export default User;
