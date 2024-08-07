@@ -20,6 +20,5 @@ class ResponseUtils {
     }
 
 
-
 }
 export default ResponseUtils;

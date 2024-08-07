@@ -11,3 +11,8 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+a {
+  text-decoration: none; /* 밑줄 제거 */
+  color: inherit; /* 색상 상속 */
+}

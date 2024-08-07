@@ -6,6 +6,8 @@ import { ApiProvider } from './component/ApiComponentContext';
 import Main from "./page/Main";
 import store from './store/store';
 import {Provider} from "react-redux";
+import {BrowserRouter} from "react-router-dom";
+import App from "./App";
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -13,9 +15,11 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <Provider store={store}>
-      <ApiProvider>
-          <Main />
-      </ApiProvider>
+      <BrowserRouter>
+        <ApiProvider>
+            <App />
+        </ApiProvider>
+      </BrowserRouter>
   </Provider>
 );
 

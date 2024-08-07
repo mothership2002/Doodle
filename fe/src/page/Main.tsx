@@ -12,6 +12,7 @@ import Jwt from "../model/domain/JsonWebToken";
 import {jwtDecode} from "jwt-decode";
 import ResponseUtils from "../utils/ResponseUtils";
 import {ApiConnector} from "../api/ApiConnector";
+import Response from "../model/http/Response";
 
 const hasToken = (type: SessionStorageKey) => {
     return StringUtils.hasText(sessionStorage.getItem(type));
@@ -43,9 +44,16 @@ const Main = () => {
     }, [dispatch, ACCESS_TOKEN_TYPE, REFRESH_TOKEN_TYPE]);
 
     useEffect(() => {
-        const validateToken = async (token: string, type: sessionStorageKey) => {
-            const param = {[type]: token}
-            return await api.call("/api/auth/token", "GET", param);
+        // const validateToken = async (token: string, type: sessionStorageKey) => {
+        //     const param = {[type]: token}
+        //     return await api.call("/api/auth/token", "GET", param);
+        // }
+
+        // mock up
+        const validateToken = async (token: string, type: sessionStorageKey): Promise<Response> => {
+            return new Promise(resolve =>
+                setTimeout(() =>
+                    resolve(new Response(200, 'success', null)), 300));
         }
 
         const init = async () => {
@@ -55,8 +63,12 @@ const Main = () => {
                     setIsAccessAble(false);
                     return;
                 }
+                if (ResponseUtils.isValid(accessTokenResult)) {
+                    dispatch(login(jwtDecode(auth.accessToken)));
+                    return;
+                }
 
-                if (!ResponseUtils.isValid(accessTokenResult) && auth.refreshToken) {
+                if (auth.refreshToken) {
                     const refreshTokenResult = await validateToken(auth.refreshToken, REFRESH_TOKEN_TYPE);
                     if (!ResponseUtils.isSuccess(refreshTokenResult)) {
                         setIsAccessAble(false);
