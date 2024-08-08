@@ -1,11 +1,15 @@
-import {useEffect} from "react";
+import React, {useEffect} from "react";
 import styles from './css/Header.module.css';
 import useCssUtil from "../hook/useCssUtil";
 import {useSelector} from "react-redux";
 import {RootState} from "../store/store";
 import {Link} from "react-router-dom";
 
-const Header = () => {
+interface HeaderProps {
+    isProcessing: boolean
+}
+
+const Header: React.FC<HeaderProps> = ({isProcessing}) => {
     // is Useful? ...
     const getStyle = useCssUtil(styles);
     const auth = useSelector((state: RootState) => state.auth);
@@ -13,8 +17,8 @@ const Header = () => {
     // mount
     useEffect(() => {
         console.log(auth.user, auth.accessToken)
-
-    }, [])
+        console.log(isProcessing)
+    }, [isProcessing])
 
     const isLoggedIn = () => {
         return auth.user ?
@@ -33,6 +37,10 @@ const Header = () => {
             )
     }
 
+    const blinkBlock = () => {
+        return (<></>)
+    }
+
     return (
         <header className={getStyle('header')}>
             <Link className={getStyle('logo')} to={`/`}>Dashboard</Link>
@@ -45,7 +53,7 @@ const Header = () => {
                 </a>
             </nav>
             <div className={getStyle('user-menu')}>
-                {isLoggedIn()}
+                {isProcessing ? blinkBlock() : isLoggedIn()}
             </div>
         </header>
     )
