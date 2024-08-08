@@ -10,6 +10,11 @@
 .logo {
     font-size: 24px;
     font-weight: bold;
+    transition: color 0.3s ease-in-out;
+}
+
+.logo:hover {
+    color: #007bff;
 }
 
 .search-bar {
@@ -41,7 +46,7 @@
 .user-menu {
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: center;
     width: 230px;
 }
 

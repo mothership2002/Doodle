@@ -46,7 +46,6 @@ const Header: React.FC<HeaderProps> = ({isProcessing}) => {
             <Link className={getStyle('logo')} to={`/`}>Dashboard</Link>
             <input type="text" className={getStyle('search-bar')} placeholder="Search..."/>
             <nav className={getStyle('nav-menu')}>
-                <a href="/">Home</a>
                 <a href="/board">Board</a>
                 <a href="/notifications" className={getStyle('notification-icon')}>
                     <img src="/img/notification-icon.svg" alt="Notifications"/>

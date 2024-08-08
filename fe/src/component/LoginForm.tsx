@@ -2,12 +2,14 @@ import React, {useState} from "react";
 import {useApi} from "./ApiComponentContext";
 import useCssUtil from "../hook/useCssUtil";
 import styles from "./css/Login.module.css";
+import {Link, useNavigate} from "react-router-dom";
 
 export const LoginForm = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
     const api = useApi();
+    const navigate = useNavigate();
     const getStyle = useCssUtil(styles);
 
     const handleSubmit = (event: React.FormEvent) => {
@@ -18,10 +20,9 @@ export const LoginForm = () => {
     }
 
     return (
-
         <div className={getStyle('login-container')}>
+            <Link className={getStyle('logo')} to={`/`}>Dashboard</Link>
             <form className={getStyle('login-form')} onSubmit={handleSubmit}>
-                <h2>Login</h2>
                 <input
                     type="text"
                     placeholder="Account"

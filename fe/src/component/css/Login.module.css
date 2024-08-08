@@ -24,7 +24,7 @@
     font-size: 16px;
     border: 1px solid #ced4da;
     border-radius: 4px;
-    width: 100%;
+    width: 85%;
 }
 
 .login-form button {
@@ -36,6 +36,7 @@
     border-radius: 4px;
     cursor: pointer;
     width: 100%;
+    transition: background-color 0.15s ease-in-out
 }
 
 .login-form button:hover {
@@ -43,6 +44,12 @@
 }
 
 .logo {
+    font-size: 4.8rem;
     margin-bottom: 20px;
     cursor: pointer;
+    transition: color 0.3s ease-in-out;
+}
+
+.logo:hover {
+    color: #007bff;
 }
