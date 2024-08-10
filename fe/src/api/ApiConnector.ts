@@ -21,10 +21,12 @@ class ApiConnector {
      * @param endPoint  @ api url -> start with '/'
      * @param method    @ http method
      * @param param     @ object param
+     * @param accessToken
      */
-    async call(endPoint: Endpoint, method: Method, param: ParentParam | null) {
+    async call(endPoint: Endpoint, method: Method, param: ParentParam | null, accessToken?: string) {
         console.log(domain, endPoint, method, param);
-        const token = null;
+
+        const token = accessToken ? accessToken : null;
         return await fetch(this.domain + endPoint, this.initHttpRequest(method, param, token))
             .then(response => {
                 if (!response.ok) {

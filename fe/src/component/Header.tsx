@@ -16,8 +16,7 @@ const Header: React.FC<HeaderProps> = ({isProcessing}) => {
 
     // mount
     useEffect(() => {
-        console.log(auth.user, auth.accessToken)
-        console.log(isProcessing)
+
     }, [isProcessing])
 
     const isLoggedIn = () => {

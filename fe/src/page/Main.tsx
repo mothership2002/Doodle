@@ -4,10 +4,9 @@ import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch, RootState} from "../store/store";
 import {useApi} from "../component/ApiComponentContext";
-import StringUtils from "../utils/StringUtils";
+import {StringUtils} from "../utils/StringUtils";
 import localStorageKey from "../common/LocalStorageKey";
 import {loggedIn, setAccessToken, setRefreshToken} from "../store/authSlice";
-import Jwt from "../model/domain/JsonWebToken";
 import {jwtDecode} from "jwt-decode";
 import ResponseUtils from "../utils/ResponseUtils";
 import {ApiConnector} from "../api/ApiConnector";
@@ -31,14 +30,6 @@ const Main = () => {
     const [isProcessing, setIsProcessing] = useState<boolean>(false);
     const [isAccessAble, setIsAccessAble] = useState<boolean>(true);
 
-    /**
-     * type guard
-     * @param jwt
-     */
-    const isJwt = (jwt: any): jwt is Jwt => {
-        return (jwt as Jwt).accessToken !== undefined;
-    }
-
     // const validateToken = async (token: string, type: localStorageKey) => {
     //     const param = {[type]: token}
     //     return await api.call("/api/auth/token", "GET", param);
@@ -51,7 +42,7 @@ const Main = () => {
                 resolve(new Response(200, 'success', null)), 300));
     }
 
-    const handleTokenValidation =  async (token: string, tokenType: localStorageKey)=> {
+    const handleTokenValidation = async (token: string, tokenType: localStorageKey) => {
         const result = await validateToken(token, tokenType);
         if (!ResponseUtils.isSuccess(result)) {
             setIsAccessAble(false);
@@ -74,7 +65,7 @@ const Main = () => {
 
             if (auth.refreshToken) {
                 const refreshTokenResult = await handleTokenValidation(auth.refreshToken, REFRESH_TOKEN_TYPE);
-                if (refreshTokenResult && isJwt(refreshTokenResult.data)) {
+                if (refreshTokenResult && ResponseUtils.isJwt(refreshTokenResult.data)) {
                     dispatch(setAccessToken(refreshTokenResult.data.accessToken));
                     dispatch(loggedIn(jwtDecode(auth.accessToken)));
                     return;

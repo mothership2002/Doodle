@@ -1,33 +1,40 @@
 import React, {useState} from "react";
-import {useApi} from "./ApiComponentContext";
 import useCssUtil from "../hook/useCssUtil";
 import styles from "./css/Login.module.css";
-import {Link, useNavigate} from "react-router-dom";
+import {Link} from "react-router-dom";
+import {RegExpUtils} from "../utils/StringUtils";
 
-export const LoginForm = () => {
-    const [email, setEmail] = useState('');
+interface LoginInfo {
+    onData: (data: { account: string; password: string; }) => void;
+}
+
+export const LoginForm: React.FC<LoginInfo> = ({onData}) => {
+    const [account, setAccount] = useState('');
     const [password, setPassword] = useState('');
-
-    const api = useApi();
-    const navigate = useNavigate();
     const getStyle = useCssUtil(styles);
 
-    const handleSubmit = (event: React.FormEvent) => {
-
-        // 부모로 올려서 비즈니스는 부모가 실행하도록하자.
-        event.preventDefault();
-        console.log(email, password)
+    const submit = () => {
+        if (isNotValid(account)) {
+            // TODO modal
+            console.log('fail')
+            return;
+        }
+        onData({account, password})
     }
+
+    const isNotValid = (account: string) => {
+        return !RegExpUtils.isValid(account);
+    };
 
     return (
         <div className={getStyle('login-container')}>
             <Link className={getStyle('logo')} to={`/`}>Dashboard</Link>
-            <form className={getStyle('login-form')} onSubmit={handleSubmit}>
+            <div className={getStyle('login-form')}>
                 <input
                     type="text"
                     placeholder="Account"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    value={account}
+                    onChange={(e) => setAccount(e.target.value)}
                     required
                 />
                 <input
@@ -37,8 +44,8 @@ export const LoginForm = () => {
                     onChange={(e) => setPassword(e.target.value)}
                     required
                 />
-                <button type="submit">Login</button>
-            </form>
+                <button onClick={submit}>Login</button>
+            </div>
         </div>
     );
 };

@@ -69,4 +69,23 @@ class StringUtils {
     }
 }
 
-export default StringUtils;
+/**
+ * regular expression utility
+ *
+ */
+class RegExpUtils {
+
+    private static accountRegExr = /^[a-zA-Z0-9]{5,13}$/
+    private static passwordRegExr = /^(?=.*[a-z])(?=.*[A-Z])[\w\W]{8,13}$|^(?=.*[a-z])(?=.*\W)[\w\W]{8,13}$|^(?=.*[A-Z])(?=.*\W)[\w\W]{8,13}$/
+
+    static isValid(account: string) {
+        return this.accountRegExr.test(account);
+    }
+
+    static isValidPassword(password: string) {
+        return this.passwordRegExr.test(password);
+    }
+
+
+}
+export { StringUtils, RegExpUtils };
