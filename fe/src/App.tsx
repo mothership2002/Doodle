@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import Main from "./page/Main";
 import Login from "./page/Login";
 import Logout from "./page/Logout";
+import SignUp from "./page/SignUp";
 
 
 const App: React.FC = () => {
@@ -12,6 +13,7 @@ const App: React.FC = () => {
                 <Route path={`/`} element={<Main />} />
                 <Route path={`/login`} element={<Login />} />
                 <Route path={`/logout`} element={<Logout />} />
+                <Route path={`/sign-up`} element={<SignUp />}></Route>
                 {/*<Route path="/about" element={<About/>}/>*/}
                 {/*<Route path="/user/:userId" element={<User/>}/>*/}
                 {/*<Route path="/search" element={<Search/>}/>*/}

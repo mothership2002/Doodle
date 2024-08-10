@@ -1,13 +1,11 @@
 import {LoginForm} from "../component/LoginForm";
 import {useApi} from "../component/ApiComponentContext";
 import {useNavigate} from "react-router-dom";
-import {useEffect, useState} from "react";
 import ResponseUtils from "../utils/ResponseUtils";
 import {jwtDecode} from "jwt-decode";
 import {useDispatch} from "react-redux";
 import {AppDispatch} from "../store/store";
 import {loggedIn, setAccessToken, setRefreshToken} from "../store/authSlice";
-import responseUtils from "../utils/ResponseUtils";
 import Jwt from "../model/domain/JsonWebToken";
 
 interface ChildData {
@@ -42,8 +40,7 @@ const Login = () => {
             // type guard
             if (ResponseUtils.isJwt(result.data)) {
                 login(result.data);
-            }
-            else {
+            } else {
                 // /login fail
             }
         }

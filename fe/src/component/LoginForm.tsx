@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import useCssUtil from "../hook/useCssUtil";
-import styles from "./css/Login.module.css";
+import styles from "./css/LoginForm.module.css";
 import {Link} from "react-router-dom";
 import {RegExpUtils} from "../utils/StringUtils";
 
@@ -45,6 +45,10 @@ export const LoginForm: React.FC<LoginInfo> = ({onData}) => {
                     required
                 />
                 <button onClick={submit}>Login</button>
+                <div className={getStyle('sign-up')}>
+                    <div>Didn't have account?</div>
+                    <Link className={getStyle('sign-up-button')} to={`/sign-up`}>here</Link>
+                </div>
             </div>
         </div>
     );
