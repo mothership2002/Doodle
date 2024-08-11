@@ -45,9 +45,9 @@ export const LoginForm: React.FC<LoginInfo> = ({onData}) => {
                     required
                 />
                 <button onClick={submit}>Login</button>
-                <div className={getStyle('sign-up')}>
-                    <div>Didn't have account?</div>
-                    <Link className={getStyle('sign-up-button')} to={`/sign-up`}>here</Link>
+                <div className={getStyle('login-footer')}>
+                    <div>Didn't have account? <Link to={`/sign-up`}>here</Link>
+                    </div>
                 </div>
             </div>
         </div>

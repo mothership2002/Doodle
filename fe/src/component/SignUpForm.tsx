@@ -1,18 +1,36 @@
 import styles from "./css/SignUpForm.module.css";
 import useCssUtil from "../hook/useCssUtil";
 import React, {useState} from "react";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
+import {useApi} from "./ApiComponentContext";
 
 export const SignUpForm = () => {
 
     const getStyle = useCssUtil(styles);
+    const api = useApi();
 
-    const [email, setEmail] = useState('');
+    const [isAccountAvailable, setIsAccountAvailable] = useState<boolean | null>(null);
+    const [verificationCode, setVerificationCode] = useState('');
+    const [isCodeSent, setIsCodeSent] = useState(false);
+
+    const [account, setAccount] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [email, setEmail] = useState('');
+
     const navigate = useNavigate();
 
-    const handleSubmit = async (e: React.FormEvent) => {
+    const handleAccountCheck = () => {
+        // 중복 체크 로직 추가
+        setIsAccountAvailable(true); // 예시로 true로 설정
+    };
+
+    const handleSendCode = () => {
+        // 이메일 인증 코드 전송 로직 추가
+        setIsCodeSent(true); // 인증 코드가 전송되었다고 가정
+    };
+
+    const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
 
         if (password !== confirmPassword) {
@@ -20,58 +38,73 @@ export const SignUpForm = () => {
             return;
         }
 
-        // 회원가입 로직을 여기에 추가합니다.
-        console.log('회원가입 시도:', { email, password });
-
-        // 예시: 회원가입 API 호출
-        // const response = await fetch('/api/signup', {
-        //   method: 'POST',
-        //   headers: {
-        //     'Content-Type': 'application/json',
-        //   },
-        //   body: JSON.stringify({ email, password }),
-        // });
-
-        // const data = await response.json();
-        // if (data.success) {
-        //   // 회원가입 성공 처리
-        //   navigate('/login');
-        // } else {
-        //   // 회원가입 실패 처리
-        // }
-
-        // 회원가입 성공 시 로그인 페이지로 리다이렉트
+        // 회원가입 로직 추가
         navigate('/login');
     };
+
     return (
-        <>
-            <div className={getStyle('signup-container')}>
-                <form className={getStyle('signup-form')} onSubmit={handleSubmit}>
-                    <h2>Sign Up</h2>
+        <div className={getStyle('signup-container')}>
+            <div className={getStyle('signup-form')}>
+                <h2>Create Your Account</h2>
+
+                {/* Account Field with Availability Check */}
+                <div className={getStyle('input-with-button')}>
+                    <input
+                        type="text"
+                        placeholder="Account"
+                        value={account}
+                        onChange={(e) => setAccount(e.target.value)}
+                    />
+                    <button type="button" className={getStyle('check-button')} onClick={handleAccountCheck}>
+                        Check Availability
+                    </button>
+                </div>
+                {isAccountAvailable !== null && (
+                    <span className={isAccountAvailable ? getStyle('available'): getStyle('not-available')}>
+                        {isAccountAvailable ? 'Account is available' : 'Account is taken'}
+                    </span>
+                )}
+
+                <input
+                    type="password"
+                    placeholder="Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                />
+                <input
+                    type="password"
+                    placeholder="Confirm Password"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                />
+
+                {/* Email Field with Verification Code */}
+                <div className={getStyle('input-with-button')}>
                     <input
                         type="email"
                         placeholder="Email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        required
                     />
+                    <button type="button" className={getStyle('check-button')} onClick={handleSendCode}>
+                        Send Verification Code
+                    </button>
+                </div>
+
+                {isCodeSent && (
                     <input
-                        type="password"
-                        placeholder="Password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
+                        type="text"
+                        placeholder="Enter verification code"
+                        value={verificationCode}
+                        onChange={(e) => setVerificationCode(e.target.value)}
                     />
-                    <input
-                        type="password"
-                        placeholder="Confirm Password"
-                        value={confirmPassword}
-                        onChange={(e) => setConfirmPassword(e.target.value)}
-                        required
-                    />
-                    <button type="submit">Sign Up</button>
-                </form>
+                )}
+
+                <button className={getStyle('submit-button')} onClick={handleSubmit}>Sign Up</button>
+                <div className={getStyle('signup-footer')}>
+                    Already have an account? <Link to={`/login`}>Log In</Link>
+                </div>
             </div>
-        </>
+        </div>
     );
 };

@@ -1,3 +1,4 @@
+
 .signup-container {
     display: flex;
     flex-direction: column;
@@ -9,35 +10,125 @@
 
 .signup-form {
     background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    width: 300px;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    width: 400px; /* Increased the width to allow more space */
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.signup-form input {
-    margin-bottom: 15px;
+.signup-form h2 {
+    margin-bottom: 20px;
+    color: #333;
+    font-size: 24px;
+}
+
+.input-with-button {
+    display: flex;
+    align-items: flex-start;
+    width: 100%;
     padding: 10px;
+}
+
+.input-with-button input {
+    flex-grow: 1;
+    padding: 12px;
     font-size: 16px;
     border: 1px solid #ced4da;
     border-radius: 4px;
-    width: 100%;
+    margin-right: 10px;
+    transition: border-color 0.3s ease;
+    box-sizing: border-box;
 }
 
-.signup-form button {
-    padding: 10px;
+.input-with-button input:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+.check-button {
+    padding: 12px 15px; /* Adjusted padding to match input height */
+    font-size: 14px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    height: 75%; /* Ensures button height matches input field */
+    white-space: nowrap;
+    margin-bottom: 10px;
+}
+
+
+.check-button:hover {
+    background-color: #0056b3;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"] {
+    height: 45px;
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    transition: border-color 0.3s ease;
+    box-sizing: border-box;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+.available {
+    color: green;
+    font-size: 12px;
+    margin-bottom: 15px;
+}
+
+.not-available {
+    color: red;
+    font-size: 12px;
+    margin-bottom: 15px;
+}
+
+.submit-button {
+    padding: 12px;
     font-size: 16px;
     color: white;
-    background-color: #28a745;
+    background-color: #007bff;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     width: 100%;
+    transition: background-color 0.3s ease;
+    margin-top: 10px; /* Add margin to separate from the fields above */
 }
 
-.signup-form button:hover {
-    background-color: #218838;
+.submit-button:hover {
+    background-color: #0056b3;
+}
+
+.signup-footer {
+    margin-top: 15px;
+    font-size: 14px;
+    color: #666;
+}
+
+.signup-footer a {
+    color: #007bff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.signup-footer a:hover {
+    color: #0056b3;
 }

@@ -54,19 +54,18 @@
     color: #007bff;
 }
 
-.sign-up {
-    display: flex;
-    justify-content: space-between;
-    width: 75%;
+.login-footer {
+    margin-top: 15px;
+    font-size: 14px;
+    color: #666;
 }
 
-.sign-up-button {
+.login-footer a {
     color: #007bff;
-    cursor: pointer;
-    transition: font-weight 0.15s ease-in-out;
+    text-decoration: none;
+    transition: color 0.3s ease;
 }
 
-.sign-up-button:hover {
-    font-weight: bold;
+.login-footer a:hover {
+    color: #0056b3;
 }
-
