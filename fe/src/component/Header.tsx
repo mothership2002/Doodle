@@ -21,6 +21,7 @@ const Header: React.FC<HeaderProps> = ({isProcessing}) => {
 
     const isLoggedIn = () => {
         return auth.user ?
+        // return true ?
             (
                 <>
                     <Link className={getStyle('profile-button')} to={`/profile`}>My Profile</Link>

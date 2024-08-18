@@ -19,7 +19,7 @@
 
 .search-bar {
     flex-grow: 1;
-    margin: 0 20px;
+    margin: 0 10px 0 10px;
     padding: 5px 10px;
     font-size: 16px;
     border: 1px solid #ced4da;
@@ -47,7 +47,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 230px;
+    width: 300px;
 }
 
 .notification-icon {
@@ -66,7 +66,7 @@
     margin: 0 10px;
     font-size: 16px;
     text-decoration: none;
-    transition: color 0.3s ease;
+    transition: background-color 0.3s ease;
     padding: 5px 10px;
     border: none;
     border-radius: 4px;
@@ -87,4 +87,22 @@
 
 .logout-button {
     background-color: #dc3545;
+}
+
+.profile-button:hover {
+    background-color: #1e5083;
+}
+
+.login-button:hover {
+    background-color: #0051a8;
+    color: white;
+}
+
+.signup-button:hover {
+    background-color: #12491e;
+    color: white;
+}
+
+.logout-button:hover {
+    background-color: #91232e;
 }
