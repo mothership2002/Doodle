@@ -1,5 +1,5 @@
 services:
-  app:
+  api-gateway:
     image: your-app-image
     ports:
       - 8080:8080

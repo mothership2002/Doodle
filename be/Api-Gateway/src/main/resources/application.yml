@@ -1,4 +1,6 @@
 spring:
+  main:
+    web-application-type: reactive
   cloud:
     gateway:
       routes:
@@ -8,4 +10,8 @@ spring:
             - Path=/posts/**
           filters:
             - name: PostServiceFilterFactory
-              args:
+#              args:
+
+  docker:
+    compose:
+      enabled: false
