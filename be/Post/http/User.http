@@ -1,0 +1,25 @@
+GET localhost:8080/api/users
+Accept: application/json
+Content-Type: application/json
+
+#####
+
+POST localhost:8080/api/users
+Accept: application/json
+Content-Type: application/json
+
+{
+  "account": "hello",
+  "password": "hello"
+}
+
+#####
+
+POST localhost:8080/api/users
+Accept: application/json
+Content-Type: application/json
+
+{
+  "account": "hello2",
+  "password": "hello"
+}

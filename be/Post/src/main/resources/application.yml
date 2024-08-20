@@ -1,0 +1,19 @@
+spring:
+  main:
+    web-application-type: reactive
+  h2:
+    port: 8090
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: r2dbc:h2:mem:///test;
+    username: sa
+    password:
+  sql:
+    init:
+      mode: always
+
+logging:
+  level:
+    org:
+      springframework:
+        r2dbc: debug
