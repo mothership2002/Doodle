@@ -28,6 +28,12 @@ public class Member extends BaseEntityColumn {
         this.password = password;
     }
 
+    public Member(Long id, String account, LocalDateTime createdAt, LocalDateTime updatedAt) {
+        super(createdAt, updatedAt);
+        this.id = id;
+        this.account = account;
+    }
+
     /**
      * update method
      * @param member given modified member info

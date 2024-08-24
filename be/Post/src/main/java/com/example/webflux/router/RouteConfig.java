@@ -15,8 +15,11 @@ import static org.springframework.web.reactive.function.server.RequestPredicates
 @RequiredArgsConstructor
 public class RouteConfig {
 
-    private final MemberHandler userHandler;
+    private final MemberHandler memberHandler;
     private final PostHandler postHandler;
+
+    private final String ID_PATH_VARIABLE = "{id}";
+
 
     @Bean
     public RouterFunction<? extends ServerResponse> mainRouter() {
@@ -30,8 +33,10 @@ public class RouteConfig {
         return RouterFunctions
                 .nest(path(url("/users")),
                         RouterFunctions.route()
-                                .GET("", userHandler::getMembers)
-                                .POST("", userHandler::createMember)
+                                .GET("", memberHandler::get)
+                                .POST("", memberHandler::create)
+                                .PUT(ID_PATH_VARIABLE, memberHandler::update)
+                                .DELETE(ID_PATH_VARIABLE, memberHandler::delete)
                                 .build()
                 );
     }
@@ -40,8 +45,10 @@ public class RouteConfig {
         return RouterFunctions
                 .nest(path(url("/posts")),
                         RouterFunctions.route()
-                                .GET("", postHandler::getPosts)
-                                .POST("", postHandler::createPost)
+                                .GET("", postHandler::get)
+                                .GET(ID_PATH_VARIABLE, postHandler::getOne)
+                                .POST("", postHandler::create)
+                                .DELETE(ID_PATH_VARIABLE, postHandler::delete)
                                 .build()
                 );
     }

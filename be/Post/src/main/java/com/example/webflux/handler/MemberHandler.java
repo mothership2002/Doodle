@@ -2,6 +2,7 @@ package com.example.webflux.handler;
 
 import com.example.webflux.model.dto.MemberReq;
 import com.example.webflux.model.dto.MemberResp;
+import com.example.webflux.model.dto.MemberUpdateReq;
 import com.example.webflux.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -17,15 +18,36 @@ public class MemberHandler {
 
     private final MemberService memberService;
 
-    public Mono<ServerResponse> getMembers(ServerRequest request) {
-        return ServerResponse.ok().headers(getHeader()).body(memberService.findAll(), MemberResp.class);
+    // TODO pagination
+    public Mono<ServerResponse> get(ServerRequest serverRequest) {
+        serverRequest.queryParams()
+        return
+//        return ServerResponse.ok().headers(getHeader()).body(memberService.findAll(), MemberResp.class);
     }
 
-    public Mono<ServerResponse> createMember(ServerRequest serverRequest) {
+    public Mono<ServerResponse> create(ServerRequest serverRequest) {
         return serverRequest.bodyToMono(MemberReq.class)
                 .flatMap(memberService::create)
                 .flatMap(memberResp -> ServerResponse.ok()
                         .headers(getHeader())
                         .body(Mono.just(memberResp), MemberResp.class));
     }
+
+    // TODO authorized;
+    public Mono<ServerResponse> delete(ServerRequest serverRequest) {
+        return Mono.just(serverRequest.pathVariable("id"))
+                .map(Long::parseLong)
+                .flatMap(memberService::delete)
+                .then(ServerResponse.noContent().build());
+    }
+
+    // TODO authorized, exception handling
+    public Mono<ServerResponse> update(ServerRequest serverRequest) {
+        return serverRequest.bodyToMono(MemberUpdateReq.class)
+                .zipWith(Mono.just(Long.parseLong(serverRequest.pathVariable("id"))))
+                .flatMap(tuple -> memberService.update(tuple.getT2(), tuple.getT1()))
+                .then(ServerResponse.noContent().build());
+    }
+
+
 }
