@@ -20,9 +20,9 @@ public class MemberHandler {
 
     // TODO pagination
     public Mono<ServerResponse> get(ServerRequest serverRequest) {
-        serverRequest.queryParams()
-        return
-//        return ServerResponse.ok().headers(getHeader()).body(memberService.findAll(), MemberResp.class);
+//        serverRequest.queryParams()
+//        return
+        return ServerResponse.ok().headers(getHeader()).body(memberService.findAll(), MemberResp.class);
     }
 
     public Mono<ServerResponse> create(ServerRequest serverRequest) {

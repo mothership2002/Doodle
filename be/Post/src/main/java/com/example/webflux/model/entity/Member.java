@@ -1,6 +1,7 @@
 package com.example.webflux.model.entity;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
@@ -9,6 +10,7 @@ import java.time.LocalDateTime;
 
 @Table
 @Getter
+@NoArgsConstructor
 public class Member extends BaseEntityColumn {
 
     @Id

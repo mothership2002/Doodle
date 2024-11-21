@@ -8,13 +8,19 @@ import com.example.webflux.model.vo.OrderBy;
 import com.example.webflux.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.awt.print.Pageable;
+import java.lang.reflect.Field;
+import java.util.Arrays;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class MemberService {
 
     private final MemberRepository memberRepository;
@@ -28,6 +34,7 @@ public class MemberService {
                 .map(MemberResp::new);
     }
 
+    @Transactional
     public Mono<MemberResp> create(MemberReq req) {
         return checkDuplicate(req.getAccount())
                 .flatMap(exists -> {
@@ -49,7 +56,8 @@ public class MemberService {
         return memberRepository.deleteById(id);
     }
 
-    public Mono<Void> update(long id, MemberUpdateReq req) {
-
+    @Transactional
+    public Mono<Long> update(long id, MemberUpdateReq req) {
+        return memberRepository.update(id, req.getAccount(), req.getUpdateMap());
     }
 }

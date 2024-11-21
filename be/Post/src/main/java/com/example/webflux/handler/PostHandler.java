@@ -23,10 +23,11 @@ public class PostHandler {
         return ServerResponse.ok().headers(getHeader()).body("world", String.class);
     }
 
-
     public Mono<ServerResponse> getOne(ServerRequest serverRequest) {
+        return ServerResponse.ok().headers(getHeader()).body("hello", String.class);
     }
 
     public Mono<ServerResponse> delete(ServerRequest serverRequest) {
+        return ServerResponse.ok().headers(getHeader()).body("world", String.class);
     }
 }
