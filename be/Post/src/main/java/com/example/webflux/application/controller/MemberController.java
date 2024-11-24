@@ -22,6 +22,7 @@ public class MemberController {
                                    @RequestParam(required = false, defaultValue = "10") int size,
                                    @RequestParam(required = false, defaultValue = "id") String columnName,
                                    @RequestParam(required = false, defaultValue = "ASC") String order) {
+
         if (!"ASC".equalsIgnoreCase(order) && !"DESC".equalsIgnoreCase(order)) {
             // custom Exception?
             throw new IllegalArgumentException("Order must be ASC or DESC");

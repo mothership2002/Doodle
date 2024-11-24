@@ -33,7 +33,7 @@ public class GlobalExceptionController {
         return ResponseEntity.badRequest().body(Map.of(e.getMessage().split(" ")[0], e.getMessage()));
     }
 
-    // ------------------------- aspect ------------------------------------ //
+    // ------------------------- aspect ------------------------- //
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<Void> handleRuntimeExceptionLog(RuntimeException e) {
         return ResponseEntity.internalServerError().build();
