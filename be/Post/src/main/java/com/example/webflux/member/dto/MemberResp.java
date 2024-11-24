@@ -1,6 +1,6 @@
 package com.example.webflux.member.dto;
 
-import com.example.webflux.member.domain.Member;
+import com.example.webflux.member.domain.model.Member;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 

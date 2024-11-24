@@ -1,6 +1,7 @@
-package com.example.webflux.member.domain;
+package com.example.webflux.member.infrastructure;
 
 import com.example.webflux.common.model.vo.OrderBy;
+import com.example.webflux.member.domain.model.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.r2dbc.core.R2dbcEntityTemplate;
 import org.springframework.r2dbc.core.DatabaseClient;

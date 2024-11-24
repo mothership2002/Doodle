@@ -1,6 +1,6 @@
 package com.example.webflux.service;
 
-import com.example.webflux.member.domain.MemberService;
+import com.example.webflux.member.domain.service.MemberService;
 import com.example.webflux.member.dto.MemberReq;
 import com.example.webflux.member.dto.MemberResp;
 import org.assertj.core.api.Assertions;
@@ -55,4 +55,11 @@ class MemberServiceTest {
                             return true;
                         }).verifyComplete();
     }
+
+    @Test
+    void create_Test() {
+        Mono<MemberResp> memberRespMono = memberService.create(new MemberReq("hello", "world"));
+        
+    }
+
 }

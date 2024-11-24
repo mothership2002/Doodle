@@ -1,4 +1,4 @@
-package com.example.webflux.post.domain;
+package com.example.webflux.post.domain.model;
 
 import com.example.webflux.common.model.entity.BaseUserEntityColumn;
 import lombok.Getter;

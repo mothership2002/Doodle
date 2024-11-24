@@ -14,7 +14,8 @@ import reactor.core.publisher.Mono;
 
 import java.util.HashMap;
 
-@Component
+@Deprecated
+//@Component
 @Order(-2)
 @RequiredArgsConstructor
 public class CustomExceptionHandler implements WebExceptionHandler {

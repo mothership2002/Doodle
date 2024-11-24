@@ -1,5 +1,6 @@
-package com.example.webflux.post.domain;
+package com.example.webflux.post.domain.service;
 
+import com.example.webflux.post.infrastructure.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;

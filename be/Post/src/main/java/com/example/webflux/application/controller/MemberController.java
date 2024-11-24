@@ -1,10 +1,9 @@
 package com.example.webflux.application.controller;
 
 import com.example.webflux.common.model.vo.OrderBy;
-import com.example.webflux.member.domain.MemberService;
+import com.example.webflux.member.domain.service.MemberService;
 import com.example.webflux.member.dto.MemberReq;
 import com.example.webflux.member.dto.MemberResp;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +13,6 @@ import reactor.core.publisher.Mono;
 @RestController
 @RequestMapping("/member")
 @RequiredArgsConstructor
-@Validated
 public class MemberController {
 
     private final MemberService memberService;
@@ -31,7 +29,7 @@ public class MemberController {
     }
 
     @PostMapping
-    public Mono<MemberResp> create(@Valid MemberReq req) {
+    public Mono<MemberResp> create(@RequestBody @Validated MemberReq req) {
         return memberService.create(req);
     }
 
@@ -40,6 +38,7 @@ public class MemberController {
         return memberService.delete(id);
     }
 
+    // TODO patch or put? 흠..
     @PutMapping("/{id}")
     public Mono<Long> update(@PathVariable long id, @RequestBody MemberReq req) {
         return memberService.update(id, req);

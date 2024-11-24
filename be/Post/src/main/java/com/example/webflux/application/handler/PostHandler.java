@@ -1,8 +1,7 @@
 package com.example.webflux.application.handler;
 
-import com.example.webflux.post.domain.PostService;
+import com.example.webflux.post.domain.service.PostService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;

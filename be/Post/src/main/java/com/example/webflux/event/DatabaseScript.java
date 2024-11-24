@@ -1,6 +1,6 @@
 package com.example.webflux.event;
 
-import com.example.webflux.member.domain.Member;
+import com.example.webflux.member.domain.model.Member;
 import com.google.gson.Gson;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
