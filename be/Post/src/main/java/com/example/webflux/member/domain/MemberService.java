@@ -2,10 +2,7 @@ package com.example.webflux.member.domain;
 
 import com.example.webflux.member.dto.MemberReq;
 import com.example.webflux.member.dto.MemberResp;
-import com.example.webflux.member.dto.MemberUpdateReq;
-import com.example.webflux.member.domain.Member;
 import com.example.webflux.common.model.vo.OrderBy;
-import com.example.webflux.member.domain.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -51,7 +48,7 @@ public class MemberService {
     }
 
     @Transactional
-    public Mono<Long> update(long id, MemberUpdateReq req) {
+    public Mono<Long> update(long id, MemberReq req) {
         return memberRepository.update(id, req.getAccount(), req.getUpdateMap());
     }
 }

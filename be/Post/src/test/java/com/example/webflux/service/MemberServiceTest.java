@@ -1,8 +1,8 @@
 package com.example.webflux.service;
 
 import com.example.webflux.member.domain.MemberService;
+import com.example.webflux.member.dto.MemberReq;
 import com.example.webflux.member.dto.MemberResp;
-import com.example.webflux.member.dto.MemberUpdateReq;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +36,7 @@ class MemberServiceTest {
 
     @Test
     void update_test() {
-        Mono<Long> update = memberService.update(1L, new MemberUpdateReq(1L, "account", "world"));
+        Mono<Long> update = memberService.update(1L, new MemberReq(1L, "account", "world"));
         StepVerifier.create(update)
                 .expectNextMatches(count -> count == 1L)
                 .verifyComplete();

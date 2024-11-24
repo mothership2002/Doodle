@@ -9,7 +9,8 @@ import reactor.core.publisher.Mono;
 
 import static com.example.webflux.common.module.HeaderUtils.getHeader;
 
-@Component
+@Deprecated
+//@Component
 @RequiredArgsConstructor
 public class PostHandler {
 

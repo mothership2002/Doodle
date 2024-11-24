@@ -12,5 +12,10 @@ public class OrderBy {
 
     private String columnName;
     private Sort.Direction direction;
+
+    public OrderBy(String columnName, String direction) {
+        this.columnName = columnName;
+        this.direction = Sort.Direction.fromString(direction);
+    }
 }
 

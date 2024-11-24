@@ -11,7 +11,8 @@ import org.springframework.web.reactive.function.server.ServerResponse;
 
 import static org.springframework.web.reactive.function.server.RequestPredicates.*;
 
-@Configuration
+@Deprecated
+//@Configuration
 @RequiredArgsConstructor
 public class RouteConfig {
 
