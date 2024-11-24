@@ -1,18 +1,16 @@
 package com.example.webflux.event;
 
-import com.example.webflux.model.entity.Member;
+import com.example.webflux.member.domain.Member;
 import com.google.gson.Gson;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.event.EventListener;
 import org.springframework.data.r2dbc.core.R2dbcEntityTemplate;
-import org.springframework.stereotype.Component;
 import reactor.test.StepVerifier;
 
-import java.time.LocalDateTime;
-
-@Component
+@Configuration
 @Slf4j
 @RequiredArgsConstructor
 public class DatabaseScript {

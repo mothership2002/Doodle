@@ -1,7 +1,8 @@
 package com.example.webflux.service;
 
-import com.example.webflux.model.dto.MemberResp;
-import com.example.webflux.model.dto.MemberUpdateReq;
+import com.example.webflux.member.domain.MemberService;
+import com.example.webflux.member.dto.MemberResp;
+import com.example.webflux.member.dto.MemberUpdateReq;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
