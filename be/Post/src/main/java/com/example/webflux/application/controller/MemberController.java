@@ -23,7 +23,8 @@ public class MemberController {
                                    @RequestParam(required = false, defaultValue = "id") String columnName,
                                    @RequestParam(required = false, defaultValue = "ASC") String order) {
         if (!"ASC".equalsIgnoreCase(order) && !"DESC".equalsIgnoreCase(order)) {
-            throw new IllegalArgumentException("order must be ASC or DESC");
+            // custom Exception?
+            throw new IllegalArgumentException("Order must be ASC or DESC");
         }
         return memberService.findAll(page, size, new OrderBy(columnName, order));
     }

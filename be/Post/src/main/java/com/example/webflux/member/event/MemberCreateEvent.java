@@ -1,6 +1,6 @@
 package com.example.webflux.member.event;
 
-import com.example.webflux.event.CustomEvent;
+import com.example.webflux.common.event.CustomEvent;
 import com.example.webflux.member.domain.model.Member;
 import lombok.Getter;
 

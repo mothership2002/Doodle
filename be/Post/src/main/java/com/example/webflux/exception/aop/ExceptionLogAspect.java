@@ -13,7 +13,7 @@ import java.util.Arrays;
 @Aspect
 public class ExceptionLogAspect {
 
-    @Around("execution(* com.example.webflux.exception.*.*(..))")
+    @Around("execution(* com.example.webflux.exception.*.*Log(..))")
     public Object logException(ProceedingJoinPoint pjp) throws Throwable {
         Arrays.stream(pjp.getArgs()).filter(arg -> arg instanceof Throwable)
                 .forEach(arg -> log.error("{}", pjp.getSignature().getName(), (Throwable) arg));

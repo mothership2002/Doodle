@@ -1,6 +1,6 @@
 package com.example.webflux.member.domain.service;
 
-import com.example.webflux.event.SimpleEventPublisher;
+import com.example.webflux.common.module.SimpleEventPublisher;
 import com.example.webflux.member.domain.model.Member;
 import com.example.webflux.member.dto.MemberReq;
 import com.example.webflux.member.dto.MemberResp;
@@ -8,7 +8,6 @@ import com.example.webflux.common.model.vo.OrderBy;
 import com.example.webflux.member.event.MemberCreateEvent;
 import com.example.webflux.member.infrastructure.MemberRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import reactor.core.publisher.Flux;
@@ -36,6 +35,7 @@ public class MemberService {
         return checkDuplicate(req.getAccount())
                 .flatMap(exists -> {
                     if (exists) {
+                        // TODO CustomException
                         return Mono.error(new IllegalArgumentException("Account already exists"));
                     } else {
                         Member member = new Member(req.getAccount(), req.getPassword());

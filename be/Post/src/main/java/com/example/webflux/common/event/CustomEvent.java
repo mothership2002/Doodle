@@ -1,4 +1,4 @@
-package com.example.webflux.event;
+package com.example.webflux.common.event;
 
 import org.springframework.context.ApplicationEvent;
 

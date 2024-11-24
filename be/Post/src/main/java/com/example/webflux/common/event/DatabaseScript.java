@@ -1,4 +1,4 @@
-package com.example.webflux.event;
+package com.example.webflux.common.event;
 
 import com.example.webflux.member.domain.model.Member;
 import com.google.gson.Gson;
