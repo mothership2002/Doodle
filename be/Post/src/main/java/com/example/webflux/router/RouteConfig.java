@@ -17,8 +17,9 @@ public class RouteConfig {
 
     private final MemberHandler memberHandler;
     private final PostHandler postHandler;
+//    private final ReplyHandler replyHandler;
 
-    private final String ID_PATH_VARIABLE = "{id}";
+    private final String ID_PATH_VARIABLE = "/{id}";
 
 
     @Bean
@@ -31,7 +32,7 @@ public class RouteConfig {
 
     public RouterFunction<ServerResponse> userRouter() {
         return RouterFunctions
-                .nest(path(url("/users")),
+                .nest(path(url("/user")),
                         RouterFunctions.route()
                                 .GET("", memberHandler::get)
                                 .POST("", memberHandler::create)
@@ -43,7 +44,7 @@ public class RouteConfig {
 
     public RouterFunction<ServerResponse> postRouter() {
         return RouterFunctions
-                .nest(path(url("/posts")),
+                .nest(path(url("/post")),
                         RouterFunctions.route()
                                 .GET("", postHandler::get)
                                 .GET(ID_PATH_VARIABLE, postHandler::getOne)
@@ -52,6 +53,18 @@ public class RouteConfig {
                                 .build()
                 );
     }
+
+//    public RouterFunction<ServerResponse> replyRouter() {
+//        return RouterFunctions
+//                .nest(path(url("/reply")),
+//                        RouterFunctions.route()
+//                                .GET("", replyHandler::get)
+//                                .GET(ID_PATH_VARIABLE, replyHandler::getOne)
+//                                .POST("", replyHandler::create)
+//                                .DELETE(ID_PATH_VARIABLE, replyHandler::delete)
+//                                .build()
+//                );
+//    }
 
     private String url(String domain) {
         return "/api" + domain;
