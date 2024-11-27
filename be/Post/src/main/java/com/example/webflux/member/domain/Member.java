@@ -1,5 +1,6 @@
-package com.example.webflux.member.domain.model;
+package com.example.webflux.member.domain;
 
+import com.example.webflux.common.event.Domain;
 import com.example.webflux.common.model.entity.BaseEntityColumn;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,7 +13,7 @@ import java.time.LocalDateTime;
 @Table
 @Getter
 @NoArgsConstructor
-public class Member extends BaseEntityColumn {
+public class Member extends BaseEntityColumn implements Domain {
 
     @Id
     private Long id;

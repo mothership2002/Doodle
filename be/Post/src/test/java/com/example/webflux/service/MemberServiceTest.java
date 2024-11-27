@@ -1,6 +1,6 @@
 package com.example.webflux.service;
 
-import com.example.webflux.member.domain.service.MemberService;
+import com.example.webflux.member.domain.MemberService;
 import com.example.webflux.member.dto.MemberReq;
 import com.example.webflux.member.dto.MemberResp;
 import org.assertj.core.api.Assertions;

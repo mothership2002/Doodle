@@ -1,5 +1,6 @@
-package com.example.webflux.post.domain.model;
+package com.example.webflux.post.domain;
 
+import com.example.webflux.common.event.Domain;
 import com.example.webflux.common.model.entity.BaseUserEntityColumn;
 import lombok.Getter;
 import org.springframework.data.annotation.Id;
@@ -10,7 +11,7 @@ import java.time.LocalDateTime;
 
 @Table
 @Getter
-public class Post extends BaseUserEntityColumn {
+public class Post extends BaseUserEntityColumn implements Domain {
 
     @Id
     private Long id;

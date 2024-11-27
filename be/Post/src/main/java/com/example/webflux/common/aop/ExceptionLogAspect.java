@@ -1,4 +1,4 @@
-package com.example.webflux.exception.aop;
+package com.example.webflux.common.aop;
 
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -13,7 +13,7 @@ import java.util.Arrays;
 @Aspect
 public class ExceptionLogAspect {
 
-    @Around("execution(* com.example.webflux.exception.*.*Log(..))")
+    @Around("execution(* com.example.webflux.common.exception.*.*Log(..))")
     public Object logException(ProceedingJoinPoint pjp) throws Throwable {
         Arrays.stream(pjp.getArgs()).filter(arg -> arg instanceof Throwable)
                 .forEach(arg -> log.error("{}", pjp.getSignature().getName(), (Throwable) arg));

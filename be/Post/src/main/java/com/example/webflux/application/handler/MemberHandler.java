@@ -1,6 +1,6 @@
 package com.example.webflux.application.handler;
 
-import com.example.webflux.member.domain.service.MemberService;
+import com.example.webflux.member.domain.MemberService;
 import com.example.webflux.member.dto.MemberReq;
 import com.example.webflux.member.dto.MemberResp;
 import lombok.RequiredArgsConstructor;

@@ -1,4 +1,4 @@
-package com.example.webflux.exception;
+package com.example.webflux.common.exception;
 
 import com.example.webflux.common.module.HeaderUtils;
 import com.google.gson.Gson;

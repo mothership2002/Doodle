@@ -1,7 +1,7 @@
-package com.example.webflux.application.controller;
+package com.example.webflux.member.application;
 
 import com.example.webflux.common.model.vo.OrderBy;
-import com.example.webflux.member.domain.service.MemberService;
+import com.example.webflux.member.domain.MemberService;
 import com.example.webflux.member.dto.MemberReq;
 import com.example.webflux.member.dto.MemberResp;
 import lombok.RequiredArgsConstructor;

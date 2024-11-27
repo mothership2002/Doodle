@@ -1,4 +1,4 @@
-package com.example.webflux.exception;
+package com.example.webflux.common.exception;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;

@@ -1,6 +1,5 @@
-package com.example.webflux.common.module;
+package com.example.webflux.common.event;
 
-import com.example.webflux.common.event.CustomEvent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationEventPublisher;
@@ -14,7 +13,7 @@ public class SimpleEventPublisher {
     private final ApplicationEventPublisher publisher;
 
     public void publish(CustomEvent event) {
-        log.info("{} Event Published : {}", event.getSource().getClass().getSimpleName(), event.getClass().getSimpleName());
+        log.info("{} Event Published : {}", event.getSource().getClass().getSimpleName(), event.getType());
         publisher.publishEvent(event);
     }
 

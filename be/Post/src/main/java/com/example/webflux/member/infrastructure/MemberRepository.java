@@ -1,6 +1,6 @@
 package com.example.webflux.member.infrastructure;
 
-import com.example.webflux.member.domain.model.Member;
+import com.example.webflux.member.domain.Member;
 import org.springframework.data.r2dbc.repository.R2dbcRepository;
 import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Mono;

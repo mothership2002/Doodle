@@ -1,11 +1,11 @@
-package com.example.webflux.member.domain.service;
+package com.example.webflux.member.domain;
 
-import com.example.webflux.common.module.SimpleEventPublisher;
-import com.example.webflux.member.domain.model.Member;
+import com.example.webflux.common.event.CustomEvent;
+import com.example.webflux.common.annotation.EventPublishPoint;
+import com.example.webflux.common.event.SimpleEventPublisher;
+import com.example.webflux.common.model.vo.OrderBy;
 import com.example.webflux.member.dto.MemberReq;
 import com.example.webflux.member.dto.MemberResp;
-import com.example.webflux.common.model.vo.OrderBy;
-import com.example.webflux.member.event.MemberCreateEvent;
 import com.example.webflux.member.infrastructure.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,21 +16,25 @@ import reactor.core.publisher.Mono;
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
-public class MemberService {
+public class MemberServiceImpl implements MemberService {
 
     private final MemberRepository memberRepository;
     private final SimpleEventPublisher publisher;
 
+    @Override
     public Flux<MemberResp> findAll() {
         return memberRepository.findAll().map(MemberResp::new);
     }
 
+    @Override
     public Flux<MemberResp> findAll(int page, int size, OrderBy orderBy) {
         return memberRepository.findAllByPage(page, size, orderBy)
                 .map(MemberResp::new);
     }
 
+    @Override
     @Transactional
+    @EventPublishPoint(CustomEvent.Type.CREATE)
     public Mono<MemberResp> create(MemberReq req) {
         return checkDuplicate(req.getAccount())
                 .flatMap(exists -> {
@@ -39,23 +43,27 @@ public class MemberService {
                         return Mono.error(new IllegalArgumentException("Account already exists"));
                     } else {
                         Member member = new Member(req.getAccount(), req.getPassword());
-                        publisher.publish(new MemberCreateEvent(this, member));
+//                        publisher.publish(new EventWrapper(this, member, EventWrapper.Type.CREATE));
                         return memberRepository.save(member).map(MemberResp::new);
                     }
                 });
     }
 
-    private Mono<Boolean> checkDuplicate(String account) {
-        return memberRepository.findOneByAccount(account)
-                .hasElement();
-    }
-
+    @Override
+    @EventPublishPoint(CustomEvent.Type.DELETE)
     public Mono<Void> delete(long id) {
         return memberRepository.deleteById(id);
     }
 
+    @Override
     @Transactional
+    @EventPublishPoint(CustomEvent.Type.UPDATE)
     public Mono<Long> update(long id, MemberReq req) {
         return memberRepository.update(id, req.getAccount(), req.getUpdateMap());
+    }
+
+    private Mono<Boolean> checkDuplicate(String account) {
+        return memberRepository.findOneByAccount(account)
+                .hasElement();
     }
 }
