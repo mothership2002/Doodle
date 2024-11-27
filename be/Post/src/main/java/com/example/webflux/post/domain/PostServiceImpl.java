@@ -15,7 +15,6 @@ import reactor.core.publisher.Mono;
 @RequiredArgsConstructor
 public class PostServiceImpl implements PostService {
 
-    private final ApplicationEventPublisher publisher;
     private final PostRepository postRepository;
 
 

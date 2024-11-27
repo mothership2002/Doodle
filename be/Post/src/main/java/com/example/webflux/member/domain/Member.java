@@ -1,6 +1,6 @@
 package com.example.webflux.member.domain;
 
-import com.example.webflux.common.event.Domain;
+import com.example.webflux.common.model.entity.Domain;
 import com.example.webflux.common.model.entity.BaseEntityColumn;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

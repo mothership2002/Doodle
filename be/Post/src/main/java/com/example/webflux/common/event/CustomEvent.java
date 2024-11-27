@@ -1,22 +1,13 @@
 package com.example.webflux.common.event;
 
-import lombok.Getter;
 import org.springframework.context.ApplicationEvent;
 
-@Getter
+/**
+ * 퍼블리셔에서 받은 이벤트를 라우팅하는 이벤트로 사용할 것
+ */
 public abstract class CustomEvent extends ApplicationEvent {
 
-    public enum Type {
-        CREATE,
-        UPDATE,
-        DELETE
-    }
-
-    private final Type type;
-
-    public CustomEvent(Object source, Type type) {
+    public CustomEvent(Object source) {
         super(source);
-        this.type = type;
     }
-
 }

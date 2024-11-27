@@ -1,6 +1,6 @@
 package com.example.webflux.post.domain;
 
-import com.example.webflux.common.event.Domain;
+import com.example.webflux.common.model.entity.Domain;
 import com.example.webflux.common.model.entity.BaseUserEntityColumn;
 import lombok.Getter;
 import org.springframework.data.annotation.Id;

@@ -1,10 +1,29 @@
 package com.example.webflux.common.module;
 
+import com.example.webflux.common.model.entity.Domain;
 import org.springframework.stereotype.Component;
+import reactor.util.context.Context;
+import reactor.util.context.ContextView;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 @Component
 public class SessionContext {
-    // thread local 처럼 사용할 세션용 컨텍스트...
-    // 비동기 방식이라 관리포인트를 어떻게 챙길 것인가?
+    // TODO check 동시성문제?
+    private final Map<ContextView, Domain> domainMap = new HashMap<>();
+    private final ExecutorService executorService = Executors.newSingleThreadExecutor();
 
+    public Context setDomain(Context context, Domain domain) {
+        domainMap.put(context, domain);
+        return context;
+    }
+
+    public Domain getDomain(ContextView context) {
+        Domain domain = domainMap.get(context);
+        executorService.submit(() -> domainMap.remove(context));
+        return domain;
+    }
 }

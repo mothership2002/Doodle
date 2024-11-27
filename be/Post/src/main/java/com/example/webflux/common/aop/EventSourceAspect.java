@@ -1,8 +1,9 @@
 package com.example.webflux.common.aop;
 
 import com.example.webflux.common.annotation.EventPublishPoint;
-import com.example.webflux.common.event.EventWrapper;
+import com.example.webflux.common.event.EntityEvent;
 import com.example.webflux.common.event.SimpleEventPublisher;
+import com.example.webflux.common.module.SessionContext;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -24,20 +25,22 @@ import java.lang.reflect.Method;
 public class EventSourceAspect {
 
     private final SimpleEventPublisher publisher;
+    private final SessionContext sessionContext;
 
     // 중요
     // 어노테이션을 매개 변수로 잡을 시 바인딩 아규먼츠 익셉션이 발생하여 리플렉션으로 핸들링.
     @Around("@annotation(com.example.webflux.common.annotation.EventPublishPoint)")
     public Object publishEvent(ProceedingJoinPoint joinPoint) throws Throwable {
         final String key = "start";
-        return Mono.deferContextual(context -> {
+        return Mono.deferContextual(contextView -> {
+
             try {
                 MethodSignature signature = (MethodSignature) joinPoint.getSignature();
                 Method method = signature.getMethod();
                 EventPublishPoint annotation = method.getAnnotation(EventPublishPoint.class);
                 return ((Mono<?>) joinPoint.proceed()).doOnSuccess(e -> {
-                    long start = context.get(key);
-                    EventWrapper event = new EventWrapper(joinPoint.getTarget(), annotation.value());
+                    long start = contextView.get(key);
+                    EntityEvent event = new EntityEvent(joinPoint.getTarget(), sessionContext.getDomain(contextView), annotation.value());
                     log.info("[{}] Event Published, Type : [{}], processed time : [{}ms]",
                             event.getSource().getClass().getSimpleName(),
                             event.getType(),

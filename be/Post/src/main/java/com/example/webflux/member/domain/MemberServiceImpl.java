@@ -1,9 +1,9 @@
 package com.example.webflux.member.domain;
 
-import com.example.webflux.common.event.CustomEvent;
+import com.example.webflux.common.event.EntityEvent;
 import com.example.webflux.common.annotation.EventPublishPoint;
-import com.example.webflux.common.event.SimpleEventPublisher;
 import com.example.webflux.common.model.vo.OrderBy;
+import com.example.webflux.common.module.SessionContext;
 import com.example.webflux.member.dto.MemberReq;
 import com.example.webflux.member.dto.MemberResp;
 import com.example.webflux.member.infrastructure.MemberRepository;
@@ -19,7 +19,7 @@ import reactor.core.publisher.Mono;
 public class MemberServiceImpl implements MemberService {
 
     private final MemberRepository memberRepository;
-    private final SimpleEventPublisher publisher;
+    private final SessionContext sessionContext;
 
     @Override
     public Flux<MemberResp> findAll() {
@@ -34,7 +34,7 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     @Transactional
-    @EventPublishPoint(CustomEvent.Type.CREATE)
+    @EventPublishPoint(EntityEvent.Type.CREATE)
     public Mono<MemberResp> create(MemberReq req) {
         return checkDuplicate(req.getAccount())
                 .flatMap(exists -> {
@@ -43,21 +43,21 @@ public class MemberServiceImpl implements MemberService {
                         return Mono.error(new IllegalArgumentException("Account already exists"));
                     } else {
                         Member member = new Member(req.getAccount(), req.getPassword());
-//                        publisher.publish(new EventWrapper(this, member, EventWrapper.Type.CREATE));
-                        return memberRepository.save(member).map(MemberResp::new);
+                        return memberRepository.save(member).map(MemberResp::new)
+                                .contextWrite(context -> sessionContext.setDomain(context, member));
                     }
                 });
     }
 
     @Override
-    @EventPublishPoint(CustomEvent.Type.DELETE)
+    @EventPublishPoint(EntityEvent.Type.DELETE)
     public Mono<Void> delete(long id) {
         return memberRepository.deleteById(id);
     }
 
     @Override
     @Transactional
-    @EventPublishPoint(CustomEvent.Type.UPDATE)
+    @EventPublishPoint(EntityEvent.Type.UPDATE)
     public Mono<Long> update(long id, MemberReq req) {
         return memberRepository.update(id, req.getAccount(), req.getUpdateMap());
     }
