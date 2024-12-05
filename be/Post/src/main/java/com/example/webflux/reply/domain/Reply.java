@@ -1,4 +1,4 @@
-package com.example.webflux.reply.domain.model;
+package com.example.webflux.reply.domain;
 
 import com.example.webflux.common.model.entity.Domain;
 import com.example.webflux.common.model.entity.BaseUserEntityColumn;

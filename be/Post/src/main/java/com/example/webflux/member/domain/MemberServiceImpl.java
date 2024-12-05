@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+import reactor.util.context.Context;
 
 @Service
 @RequiredArgsConstructor
@@ -34,7 +35,7 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     @Transactional
-    @EventPublishPoint(EntityEvent.Type.CREATE)
+    @EventPublishPoint(type = EntityEvent.Type.CREATE, domain = Member.class)
     public Mono<MemberResp> create(MemberReq req) {
         return checkDuplicate(req.getAccount())
                 .flatMap(exists -> {
@@ -43,21 +44,20 @@ public class MemberServiceImpl implements MemberService {
                         return Mono.error(new IllegalArgumentException("Account already exists"));
                     } else {
                         Member member = new Member(req.getAccount(), req.getPassword());
-                        return memberRepository.save(member).map(MemberResp::new)
-                                .contextWrite(context -> sessionContext.setDomain(context, member));
+                        return memberRepository.save(member).map(MemberResp::new);
                     }
                 });
     }
 
     @Override
-    @EventPublishPoint(EntityEvent.Type.DELETE)
+    @EventPublishPoint(type = EntityEvent.Type.DELETE, domain = Member.class)
     public Mono<Void> delete(long id) {
         return memberRepository.deleteById(id);
     }
 
     @Override
     @Transactional
-    @EventPublishPoint(EntityEvent.Type.UPDATE)
+    @EventPublishPoint(type = EntityEvent.Type.UPDATE, domain = Member.class)
     public Mono<Long> update(long id, MemberReq req) {
         return memberRepository.update(id, req.getAccount(), req.getUpdateMap());
     }

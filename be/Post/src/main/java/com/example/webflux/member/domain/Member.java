@@ -41,6 +41,7 @@ public class Member extends BaseEntityColumn implements Domain {
     /**
      * update method
      * @param member given modified member info
+     *               jpa 가 아니라 안될 수 도 있을것 같음.
      */
     public void update(Member member) {
         super.update(LocalDateTime.now());

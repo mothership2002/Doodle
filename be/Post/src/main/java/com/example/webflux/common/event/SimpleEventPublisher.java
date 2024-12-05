@@ -13,9 +13,10 @@ public class SimpleEventPublisher {
     private final ApplicationEventPublisher publisher;
 
     public void publish(EntityEvent event) {
-        Domain domain = event.getDomain();
+        Class<? extends Domain> domain = event.getDomain();
+        System.out.println(domain);
         // TODO Temporary
-        if (domain instanceof Member) {
+        if (Member.class.equals(domain)) {
             System.out.println("Helo");
         }
 

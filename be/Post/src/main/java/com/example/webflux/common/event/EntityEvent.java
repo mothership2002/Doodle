@@ -13,10 +13,10 @@ public class EntityEvent extends ApplicationEvent {
         DELETE
     }
 
-    private final Domain domain;
+    private final Class<? extends Domain> domain;
     private final Type type;
 
-    public EntityEvent(Object source, Domain domain, Type type) {
+    public EntityEvent(Object source, Class<? extends Domain> domain, Type type) {
         super(source);
         this.domain = domain;
         this.type = type;
