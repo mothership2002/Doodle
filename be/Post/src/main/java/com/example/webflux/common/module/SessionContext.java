@@ -11,6 +11,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 @Component
+@Deprecated
 public class SessionContext {
     // TODO check 동시성문제?
     private final Map<ContextView, Domain> domainMap = new HashMap<>();

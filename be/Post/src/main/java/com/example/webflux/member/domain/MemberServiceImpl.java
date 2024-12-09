@@ -1,9 +1,8 @@
 package com.example.webflux.member.domain;
 
-import com.example.webflux.common.event.EntityEvent;
 import com.example.webflux.common.annotation.EventPublishPoint;
+import com.example.webflux.common.event.EntityEvent;
 import com.example.webflux.common.model.vo.OrderBy;
-import com.example.webflux.common.module.SessionContext;
 import com.example.webflux.member.dto.MemberReq;
 import com.example.webflux.member.dto.MemberResp;
 import com.example.webflux.member.infrastructure.MemberRepository;
@@ -12,7 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-import reactor.util.context.Context;
 
 @Service
 @RequiredArgsConstructor
@@ -20,14 +18,15 @@ import reactor.util.context.Context;
 public class MemberServiceImpl implements MemberService {
 
     private final MemberRepository memberRepository;
-    private final SessionContext sessionContext;
 
     @Override
+    @EventPublishPoint(type = EntityEvent.Type.FIND, domain = Member.class)
     public Flux<MemberResp> findAll() {
         return memberRepository.findAll().map(MemberResp::new);
     }
 
     @Override
+    @EventPublishPoint(type = EntityEvent.Type.FIND, domain = Member.class)
     public Flux<MemberResp> findAll(int page, int size, OrderBy orderBy) {
         return memberRepository.findAllByPage(page, size, orderBy)
                 .map(MemberResp::new);
@@ -62,6 +61,7 @@ public class MemberServiceImpl implements MemberService {
         return memberRepository.update(id, req.getAccount(), req.getUpdateMap());
     }
 
+    // -------------------------------------------- private -------------------------------------------- //
     private Mono<Boolean> checkDuplicate(String account) {
         return memberRepository.findOneByAccount(account)
                 .hasElement();

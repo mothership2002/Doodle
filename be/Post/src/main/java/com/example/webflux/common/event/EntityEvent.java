@@ -8,6 +8,7 @@ import org.springframework.context.ApplicationEvent;
 public class EntityEvent extends ApplicationEvent {
 
     public enum Type {
+        FIND,
         CREATE,
         UPDATE,
         DELETE
