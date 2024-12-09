@@ -14,7 +14,6 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
-@Repository
 public class MemberRepositoryCustomImpl implements MemberRepositoryCustom {
 
     private final DatabaseClient dbc;

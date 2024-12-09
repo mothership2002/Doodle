@@ -10,6 +10,7 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
 import reactor.util.context.ContextView;
@@ -18,6 +19,7 @@ import reactor.util.context.ContextView;
 @Aspect
 @Slf4j(topic = "ProcessedLog")
 @RequiredArgsConstructor
+@Order(2)
 public class ProcessAspect {
 
     private final String START_TIME_KEY = "start";
