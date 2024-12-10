@@ -1,11 +1,13 @@
 package com.example.webflux.common.model.entity;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.springframework.data.relational.core.mapping.Column;
 
 import java.time.LocalDateTime;
 
 @Getter
+@NoArgsConstructor
 public abstract class BaseUserEntityColumn extends BaseEntityColumn {
 
     /**

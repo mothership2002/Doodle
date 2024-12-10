@@ -42,7 +42,11 @@ dependencies {
     testAnnotationProcessor 'org.projectlombok:lombok'
     implementation 'io.projectreactor:reactor-test'
 
+    // gson
     implementation 'com.google.code.gson:gson:2.10.1'
+
+    // byte buddy
+    implementation 'net.bytebuddy:byte-buddy:1.15.10'
 
 }
 

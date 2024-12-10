@@ -3,6 +3,7 @@ package com.example.webflux.post.domain;
 import com.example.webflux.common.model.entity.Domain;
 import com.example.webflux.common.model.entity.BaseUserEntityColumn;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
@@ -11,6 +12,7 @@ import java.time.LocalDateTime;
 
 @Table
 @Getter
+@NoArgsConstructor
 public class Post extends BaseUserEntityColumn implements Domain {
 
     @Id

@@ -10,7 +10,7 @@ public class SimpleEventPublisher {
 
     private final ApplicationEventPublisher publisher;
 
-    public void publish(EntityEvent event) {
+    public void publish(CustomEvent event) {
 
     }
 
