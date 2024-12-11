@@ -28,6 +28,7 @@ public class EventClassFactory extends Module {
         super.init();
     }
 
+    @Deprecated
     private Class<?> createEventClass(EntityEvent.Type type) {
         return null;
     }
@@ -49,8 +50,8 @@ public class EventClassFactory extends Module {
                 // bytebuddy를 쓰는게 맞나? ㅋㅋ
                 byteBuddy
                         .subclass(CustomEvent.class)
-                        .name(getClassName(domainClass, type))
-                        .defineField();
+                        .name(getClassName(domainClass, type));
+//                        .defineField();
             }
 
             eventMap.put(domainClass, value);

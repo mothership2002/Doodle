@@ -12,14 +12,14 @@ spring:
     init:
       mode: always
 
-logging:
-  level:
-    org:
-      springframework:
-        r2dbc: debug
-        aop: debug
-      aspectj:
-        weaver: debug
+#logging:
+#  level:
+#    org:
+#      springframework:
+#        r2dbc: debug
+#        aop: debug
+#      aspectj:
+#        weaver: debug
 
 application:
   version: 'v1'
