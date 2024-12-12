@@ -47,6 +47,7 @@ public class EventClassFactory extends Module {
         for (Class<?> domainClass : domainClasses) {
             HashMap<EntityEvent.Type, CustomEvent> value = new HashMap<>();
             for (EntityEvent.Type type : EntityEvent.Type.values()) {
+                System.out.println(getClassName(domainClass, type));
                 // bytebuddy를 쓰는게 맞나? ㅋㅋ
                 byteBuddy
                         .subclass(CustomEvent.class)

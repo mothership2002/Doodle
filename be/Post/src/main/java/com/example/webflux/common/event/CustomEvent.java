@@ -1,5 +1,6 @@
 package com.example.webflux.common.event;
 
+import com.example.webflux.common.model.entity.Domain;
 import org.springframework.context.ApplicationEvent;
 
 /**
@@ -7,7 +8,10 @@ import org.springframework.context.ApplicationEvent;
  */
 public abstract class CustomEvent extends ApplicationEvent {
 
-    public CustomEvent(Object source) {
+    protected final Domain domain;
+
+    public CustomEvent(Object source, Domain domain) {
         super(source);
+        this.domain = domain;
     }
 }
