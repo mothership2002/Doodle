@@ -1,14 +1,29 @@
 package com.example.webflux.common.module;
 
+import com.example.webflux.WebfluxApplication;
 import com.example.webflux.common.event.CustomEvent;
 import com.example.webflux.common.event.EntityEvent;
+import com.example.webflux.common.event.EntityEvent.Type;
+import com.example.webflux.common.event.crud.CreateEvent;
+import com.example.webflux.common.event.crud.DeleteEvent;
+import com.example.webflux.common.event.crud.FindEvent;
+import com.example.webflux.common.event.crud.UpdateEvent;
+import com.example.webflux.common.model.entity.Domain;
+import com.example.webflux.reply.domain.Reply;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import net.bytebuddy.ByteBuddy;
+import net.bytebuddy.dynamic.loading.ClassLoadingStrategy;
+import net.bytebuddy.implementation.MethodCall;
 import org.springframework.stereotype.Component;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Modifier;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static com.example.webflux.common.event.EntityEvent.Type.*;
 
 @Component
 @Slf4j
@@ -17,9 +32,15 @@ public class EventClassFactory extends Module {
     private static final String EVENT = "Event";
     private static final String PACKAGE_NAME = CustomEvent.class.getPackageName();
 
+    private final Map<Type, Class<? extends CustomEvent>> eventSuperClassMap = Map.of(
+            FIND, FindEvent.class,
+            CREATE, CreateEvent.class,
+            UPDATE, UpdateEvent.class,
+            DELETE, DeleteEvent.class
+    );
     private final PackageScanner packageScanner;
     private final ByteBuddy byteBuddy;
-    private final Map<Class<?>, Map<EntityEvent.Type, ? extends CustomEvent>> eventMap;
+    @Getter private final Map<Class<?>, Map<Type, Class<? extends CustomEvent>>> eventMap;
 
     public EventClassFactory(PackageScanner packageScanner, ByteBuddy byteBuddy) throws ClassNotFoundException {
         this.packageScanner = packageScanner;
@@ -28,34 +49,29 @@ public class EventClassFactory extends Module {
         super.init();
     }
 
-    @Deprecated
-    private Class<?> createEventClass(EntityEvent.Type type) {
-        return null;
-    }
-
-    private String capitalize(String str) {
-        return str.substring(0, 1).toUpperCase() + str.substring(1);
-    }
-
-    private String getClassName(Class<?> domainClass, EntityEvent.Type type) {
-        return PACKAGE_NAME + "." + domainClass.getSimpleName() + capitalize(type.name().toLowerCase()) + EVENT;
-    }
-
     @Override
     protected void construct() {
         List<Class<?>> domainClasses = this.packageScanner.getDomainClasses();
         for (Class<?> domainClass : domainClasses) {
-            HashMap<EntityEvent.Type, CustomEvent> value = new HashMap<>();
-            for (EntityEvent.Type type : EntityEvent.Type.values()) {
-                System.out.println(getClassName(domainClass, type));
-                // bytebuddy를 쓰는게 맞나? ㅋㅋ
-                byteBuddy
-                        .subclass(CustomEvent.class)
-                        .name(getClassName(domainClass, type));
-//                        .defineField();
+            Map<Type, Class<? extends CustomEvent>> value = new HashMap<>();
+            for (Type type : values()) {
+                Class<? extends CustomEvent> eventClass = createEventClass(domainClass, eventSuperClassMap.get(type));
+                value.put(type, eventClass);
             }
-
             eventMap.put(domainClass, value);
         }
+    }
+
+    private Class<? extends CustomEvent> createEventClass(Class<?> domainClass, Class<? extends CustomEvent> superClass) {
+        return byteBuddy
+                .subclass(superClass)
+                .name(getClassName(domainClass) + superClass.getSimpleName())
+                .make()
+                .load(WebfluxApplication.class.getClassLoader(), ClassLoadingStrategy.Default.WRAPPER)
+                .getLoaded();
+    }
+
+    private String getClassName(Class<?> domainClass) {
+        return PACKAGE_NAME + "." + domainClass.getSimpleName();
     }
 }

@@ -48,6 +48,7 @@ public class EventSourceAspect {
         if (proceed instanceof Mono) {
             return ((Mono<?>) proceed)
                     .doOnSuccess(value -> ref.set((Domain) value))
+                    // TODO 여기서 이벤트를 어떻게 넣지 흠
                     .doFinally(signalType -> publisher.publish(getEvent(ref.get(), null)));
         }
         return proceed;
@@ -55,6 +56,9 @@ public class EventSourceAspect {
 
     private CustomEvent getEvent(Domain domain, EntityEvent.Type type) {
         log.info("{}, {}", type, domain);
+        System.out.println(EventClassFactory.getEventMap().get(domain.getClass()));
+        Class<? extends CustomEvent> eventTypeClass = EventClassFactory.getEventMap().get(domain.getClass()).get(type);
+        System.out.println(eventTypeClass);
         return null;
     }
 }
