@@ -1,4 +1,4 @@
-package com.example.webflux.member.infrastructure;
+package com.example.webflux.member.infrastructure.repository;
 
 import com.example.webflux.member.domain.Member;
 import org.springframework.data.r2dbc.repository.R2dbcRepository;

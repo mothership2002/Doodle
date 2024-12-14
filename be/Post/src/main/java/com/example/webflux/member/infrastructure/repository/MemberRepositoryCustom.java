@@ -1,4 +1,4 @@
-package com.example.webflux.member.infrastructure;
+package com.example.webflux.member.infrastructure.repository;
 
 import com.example.webflux.common.model.vo.OrderBy;
 import com.example.webflux.member.domain.Member;
@@ -11,5 +11,7 @@ public interface MemberRepositoryCustom {
 
     Flux<Member> findAllByPage(int page, int size, OrderBy orderBy);
 
-    Mono<Long> update(Long id, String account, Map<String, String> updatedField);
+    Mono<Member> update(Long id, String account, Map<String, String> updateMap);
+
+    Mono<Member> deleteByIdCustom(Long id);
 }

@@ -1,4 +1,4 @@
-package com.example.webflux.member.infrastructure;
+package com.example.webflux.member.infrastructure.repository;
 
 import com.example.webflux.common.model.vo.OrderBy;
 import com.example.webflux.member.domain.Member;
@@ -21,12 +21,12 @@ public class MemberRepositoryCustomImpl implements MemberRepositoryCustom {
 
     @Override
     public Flux<Member> findAllByPage(int page, int size, OrderBy orderBy) {
-        return dbc.sql(
-                        " SELECT * " +
-                        " FROM MEMBER " +
-                        " ORDER by :columnName " +
-                        " LIMIT :limit OFFSET :offect"
-                )
+        return query(
+                " SELECT * " +
+                " FROM MEMBER " +
+                " ORDER by :columnName " +
+                " LIMIT :limit OFFSET :offect"
+        )
                 .bind("columnName", orderBy.getColumnName())
                 .bind("limit", size)
                 .bind("offset", size * page)
@@ -40,18 +40,39 @@ public class MemberRepositoryCustomImpl implements MemberRepositoryCustom {
     }
 
     @Override
-    public Mono<Long> update(Long id, String account, Map<String, String> updatedField) {
+    public Mono<Member> update(Long id, String account, Map<String, String> updatedField) {
         String collect = updatedField.entrySet().stream()
                 .map(e ->
                         e.getKey() + " = '" + e.getValue() + "'")
                 .collect(Collectors.joining(", "));
-        return dbc.sql(
+        return query(
                 " UPDATE MEMBER m" +
                 " SET " + collect +
-                " WHERE m.id = :id"
+                " WHERE m.id = :id" +
+                " RETURNING *"
         )
                 .bind("id", id)
-                .fetch()
-                .rowsUpdated();
+                .map((row, rowMetadata) ->
+                        new Member(row.get("id", Long.class), row.get("account", String.class))
+                )
+                .one();
+    }
+
+    @Override
+    public Mono<Member> deleteByIdCustom(Long id) {
+        // 삭제 후 반환 쿼리
+        return query(
+                " DELETE FROM member " +
+                " WHERE id = :id " +
+                " RETURNING *")
+                .bind("id", id)
+                .map((row, rowMetadata) ->
+                        new Member(row.get("id", Long.class), row.get("account", String.class))
+                )
+                .one();
+    }
+
+    private DatabaseClient.GenericExecuteSpec query(String query) {
+        return dbc.sql(query);
     }
 }

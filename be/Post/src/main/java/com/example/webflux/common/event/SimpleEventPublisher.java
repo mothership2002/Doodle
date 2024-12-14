@@ -15,23 +15,34 @@ public class SimpleEventPublisher {
     private final ApplicationEventPublisher publisher;
 
     public void publish(CustomEvent event) {
-
+        if (event instanceof FindEvent) {
+            publish((FindEvent) event);
+        }
+        if (event instanceof CreateEvent) {
+            publish((CreateEvent) event);
+        }
+        if (event instanceof UpdateEvent) {
+            publish((UpdateEvent) event);
+        }
+        if (event instanceof DeleteEvent) {
+            publish((DeleteEvent) event);
+        }
     }
 
     public void publish(FindEvent event) {
-
+        System.out.println(event.getDomain());
     }
 
     public void publish(CreateEvent event) {
-
+        System.out.println(event.getDomain());
     }
 
     public void publish(UpdateEvent event) {
-
+        System.out.println(event.getDomain());
     }
 
     public void publish(DeleteEvent event) {
-
+        System.out.println(event.getDomain());
     }
 }
 

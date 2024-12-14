@@ -26,6 +26,17 @@ public class Member extends BaseEntityColumn implements Domain {
 
     // TODO additionally ROLE <<
 
+    public Member(Long id, String account) {
+        this.id = id;
+        this.account = account;
+    }
+
+    public Member(Long id, String account, String password) {
+        this.id = id;
+        this.account = account;
+        this.password = password;
+    }
+
     public Member(String account, String password) {
         super(LocalDateTime.now());
         this.account = account;
