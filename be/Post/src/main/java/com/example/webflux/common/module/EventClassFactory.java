@@ -9,6 +9,7 @@ import com.example.webflux.common.event.crud.DeleteEvent;
 import com.example.webflux.common.event.crud.FindEvent;
 import com.example.webflux.common.event.crud.UpdateEvent;
 import com.example.webflux.common.model.entity.Domain;
+import com.example.webflux.post.domain.Post;
 import com.example.webflux.reply.domain.Reply;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -17,6 +18,7 @@ import net.bytebuddy.dynamic.loading.ClassLoadingStrategy;
 import net.bytebuddy.implementation.MethodCall;
 import org.springframework.stereotype.Component;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
 import java.util.HashMap;
@@ -29,8 +31,7 @@ import static com.example.webflux.common.event.EntityEvent.Type.*;
 @Slf4j
 public class EventClassFactory extends Module {
 
-    private static final String EVENT = "Event";
-    private static final String PACKAGE_NAME = CustomEvent.class.getPackageName();
+    private static final String EVENT_PACKAGE_NAME = CustomEvent.class.getPackageName();
 
     private final Map<Type, Class<? extends CustomEvent>> eventSuperClassMap = Map.of(
             FIND, FindEvent.class,
@@ -72,6 +73,6 @@ public class EventClassFactory extends Module {
     }
 
     private String getClassName(Class<?> domainClass) {
-        return PACKAGE_NAME + "." + domainClass.getSimpleName();
+        return EVENT_PACKAGE_NAME + "." + domainClass.getSimpleName();
     }
 }

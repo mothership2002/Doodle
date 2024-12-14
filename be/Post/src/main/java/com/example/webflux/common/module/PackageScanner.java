@@ -1,5 +1,6 @@
 package com.example.webflux.common.module;
 
+import com.example.webflux.common.Constant;
 import jakarta.annotation.PostConstruct;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +19,6 @@ import java.util.Set;
 @Getter
 public class PackageScanner extends Module {
 
-    private static final String PACKAGE_NAME = "com.example.webflux";
     private final List<Class<?>> domainClasses = new ArrayList<>();
 
     public PackageScanner() throws ClassNotFoundException {
@@ -30,7 +30,7 @@ public class PackageScanner extends Module {
     protected void construct() throws ClassNotFoundException {
         ClassPathScanningCandidateComponentProvider scanner = new ClassPathScanningCandidateComponentProvider(false);
         scanner.addIncludeFilter(new AnnotationTypeFilter(Table.class));
-        Set<BeanDefinition> candidateComponents = scanner.findCandidateComponents(PACKAGE_NAME);
+        Set<BeanDefinition> candidateComponents = scanner.findCandidateComponents(Constant.ROOT_PACKAGE);
         for (BeanDefinition entity : candidateComponents) {
             domainClasses.add(Class.forName(entity.getBeanClassName()));
         }

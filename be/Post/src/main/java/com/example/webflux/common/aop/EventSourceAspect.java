@@ -1,28 +1,19 @@
 package com.example.webflux.common.aop;
 
-import com.example.webflux.common.annotation.EventPublishPoint;
+import com.example.webflux.common.Constant;
 import com.example.webflux.common.event.CustomEvent;
 import com.example.webflux.common.event.EntityEvent;
 import com.example.webflux.common.event.SimpleEventPublisher;
 import com.example.webflux.common.model.entity.Domain;
 import com.example.webflux.common.module.EventClassFactory;
-import com.example.webflux.common.module.PackageScanner;
 import lombok.extern.slf4j.Slf4j;
-import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.Signature;
-import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
 
-import java.lang.reflect.Method;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
 
 @Component
@@ -45,6 +36,18 @@ public class EventSourceAspect {
     public Object publishEvent(ProceedingJoinPoint jp) throws Throwable {
         Object proceed = jp.proceed();
         AtomicReference<Domain> ref = new AtomicReference<>();
+        StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
+
+        for (StackTraceElement element : stackTrace) {
+            if (element.getClassName().startsWith(Constant.ROOT_PACKAGE)) {
+                if (isIncludedPackage(element.getClassName())
+                    && isCRUD(element)) {
+                    Class<?> callClass = Class.forName(element.getClassName());
+                    System.out.println(element.getMethodName());
+                }
+            }
+        }
+
         if (proceed instanceof Mono) {
             return ((Mono<?>) proceed)
                     .doOnSuccess(value -> ref.set((Domain) value))
@@ -54,11 +57,26 @@ public class EventSourceAspect {
         return proceed;
     }
 
+    private boolean isCRUD(StackTraceElement element) {
+        EntityEvent.Type[] values = EntityEvent.Type.values();
+        String methodName = element.getMethodName().toLowerCase();
+        for (EntityEvent.Type value : values) {
+            if (methodName.contains(value.name().toLowerCase()))
+                return true;
+        }
+        return false;
+    }
+
     private CustomEvent getEvent(Domain domain, EntityEvent.Type type) {
         log.info("{}, {}", type, domain);
         System.out.println(EventClassFactory.getEventMap().get(domain.getClass()));
         Class<? extends CustomEvent> eventTypeClass = EventClassFactory.getEventMap().get(domain.getClass()).get(type);
         System.out.println(eventTypeClass);
         return null;
+    }
+
+    private boolean isIncludedPackage(String className) {
+        return !className.startsWith(Constant.EXCLUDE_PACKAGE_NAME_COMMON)
+                && !className.startsWith(Constant.EXCLUDE_PACKAGE_NAME_CONFIG);
     }
 }

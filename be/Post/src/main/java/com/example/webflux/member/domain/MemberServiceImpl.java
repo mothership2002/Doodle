@@ -37,15 +37,17 @@ public class MemberServiceImpl implements MemberService {
     @EventPublishPoint(type = EntityEvent.Type.CREATE, domain = Member.class)
     public Mono<MemberResp> create(MemberReq req) {
         return checkDuplicate(req.getAccount())
-                .flatMap(exists -> {
-                    if (exists) {
-                        // TODO CustomException
-                        return Mono.error(new IllegalArgumentException("Account already exists"));
-                    } else {
-                        Member member = new Member(req.getAccount(), req.getPassword());
-                        return memberRepository.save(member).map(MemberResp::new);
-                    }
-                });
+                .flatMap(exists -> getMemberRespMono(req, exists));
+    }
+
+    private Mono<MemberResp> getMemberRespMono(MemberReq req, Boolean exists) {
+        if (exists) {
+            // TODO CustomException
+            return Mono.error(new IllegalArgumentException("Account already exists"));
+        } else {
+            Member member = new Member(req.getAccount(), req.getPassword());
+            return memberRepository.save(member).map(MemberResp::new);
+        }
     }
 
     @Override
