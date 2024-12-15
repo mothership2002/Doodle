@@ -48,6 +48,10 @@ dependencies {
     // byte buddy
     implementation 'net.bytebuddy:byte-buddy:1.15.10'
 
+    // kafka
+    implementation 'org.springframework.kafka:spring-kafka'
+
+
 }
 
 tasks.named('test') {

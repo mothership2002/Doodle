@@ -11,6 +11,11 @@ spring:
   sql:
     init:
       mode: always
+  kafka:
+    bootstrap-servers: localhost:11011,localhost:11012,localhost:11013
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
 
 #logging:
 #  level:

@@ -23,37 +23,37 @@ public class RouteConfig {
     private final String ID_PATH_VARIABLE = "/{id}";
 
 
-    @Bean
-    public RouterFunction<? extends ServerResponse> mainRouter() {
-        return RouterFunctions.route()
-                .add(userRouter())
-                .add(postRouter())
-                .build();
-    }
-
-    public RouterFunction<ServerResponse> userRouter() {
-        return RouterFunctions
-                .nest(path(url("/user")),
-                        RouterFunctions.route()
-                                .GET("", memberHandler::get)
-                                .POST("", memberHandler::create)
-                                .PUT(ID_PATH_VARIABLE, memberHandler::update)
-                                .DELETE(ID_PATH_VARIABLE, memberHandler::delete)
-                                .build()
-                );
-    }
-
-    public RouterFunction<ServerResponse> postRouter() {
-        return RouterFunctions
-                .nest(path(url("/post")),
-                        RouterFunctions.route()
-                                .GET("", postHandler::get)
-                                .GET(ID_PATH_VARIABLE, postHandler::getOne)
-                                .POST("", postHandler::create)
-                                .DELETE(ID_PATH_VARIABLE, postHandler::delete)
-                                .build()
-                );
-    }
+//    @Bean
+//    public RouterFunction<? extends ServerResponse> mainRouter() {
+//        return RouterFunctions.route()
+//                .add(userRouter())
+//                .add(postRouter())
+//                .build();
+//    }
+//
+//    public RouterFunction<ServerResponse> userRouter() {
+//        return RouterFunctions
+//                .nest(path(url("/user")),
+//                        RouterFunctions.route()
+//                                .GET("", memberHandler::get)
+//                                .POST("", memberHandler::create)
+//                                .PUT(ID_PATH_VARIABLE, memberHandler::update)
+//                                .DELETE(ID_PATH_VARIABLE, memberHandler::delete)
+//                                .build()
+//                );
+//    }
+//
+//    public RouterFunction<ServerResponse> postRouter() {
+//        return RouterFunctions
+//                .nest(path(url("/post")),
+//                        RouterFunctions.route()
+//                                .GET("", postHandler::get)
+//                                .GET(ID_PATH_VARIABLE, postHandler::getOne)
+//                                .POST("", postHandler::create)
+//                                .DELETE(ID_PATH_VARIABLE, postHandler::delete)
+//                                .build()
+//                );
+//    }
 
 //    public RouterFunction<ServerResponse> replyRouter() {
 //        return RouterFunctions

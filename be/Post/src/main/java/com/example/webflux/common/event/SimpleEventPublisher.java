@@ -34,7 +34,7 @@ public class SimpleEventPublisher {
     }
 
     public void publish(CreateEvent event) {
-        System.out.println(event.getDomain());
+        publisher.publishEvent(event);
     }
 
     public void publish(UpdateEvent event) {
