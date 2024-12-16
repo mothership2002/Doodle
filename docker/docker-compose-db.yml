@@ -1,0 +1,24 @@
+services:
+  db:
+    image: postgres
+    restart: always
+    shm_size: 128mb
+    ports:
+      - '11000:5432'
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+    volumes:
+      - I:/DB/postgres/:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4
+    restart: always
+    container_name: pgadmin4
+    ports:
+      - '12000:80'
+    environment:
+      PGADMIN_DEFAULT_EMAIL: mothership2002@naver.com
+      PGADMIN_DEFAULT_PASSWORD: mothership
+    volumes:
+      - I:/DB/pgadmin/:/var/lib/pgadmin
