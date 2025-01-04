@@ -1,26 +1,18 @@
 package hyun.dashboard.common.module.custom;
 
-import hyun.dashboard.WebfluxApplication;
+import hyun.dashboard.DashboardApplication;
 import hyun.dashboard.common.event.CustomEvent;
-import hyun.dashboard.common.event.EntityEvent;
 import hyun.dashboard.common.event.EntityEvent.Type;
 import hyun.dashboard.common.event.crud.CreateEvent;
 import hyun.dashboard.common.event.crud.DeleteEvent;
 import hyun.dashboard.common.event.crud.FindEvent;
 import hyun.dashboard.common.event.crud.UpdateEvent;
-import hyun.dashboard.common.model.entity.Domain;
-import hyun.dashboard.post.domain.Post;
-import hyun.dashboard.reply.domain.Reply;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import net.bytebuddy.ByteBuddy;
 import net.bytebuddy.dynamic.loading.ClassLoadingStrategy;
-import net.bytebuddy.implementation.MethodCall;
 import org.springframework.stereotype.Component;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Modifier;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -68,7 +60,7 @@ public class EventClassFactory extends Module {
                 .subclass(superClass)
                 .name(getClassName(domainClass) + superClass.getSimpleName())
                 .make()
-                .load(WebfluxApplication.class.getClassLoader(), ClassLoadingStrategy.Default.WRAPPER)
+                .load(DashboardApplication.class.getClassLoader(), ClassLoadingStrategy.Default.WRAPPER)
                 .getLoaded();
     }
 
