@@ -1,4 +1,4 @@
-package com.example.webflux.common.module;
+package com.example.webflux.common.module.custom;
 
 import com.example.webflux.common.Constant;
 import jakarta.annotation.PostConstruct;
