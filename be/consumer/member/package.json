@@ -1,0 +1,23 @@
+{
+  "name": "member",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start:dev": "dotenv -e environment/dev.env -- node ./bin/www",
+    "start:prod": "dotenv -e environment/prod.env -- node ./bin/www"
+  },
+  "dependencies": {
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "dotenv-cli": "^8.0.0",
+    "express": "~4.16.1",
+    "kafkajs": "^2.2.4",
+    "morgan": "~1.9.1",
+    "pg": "^8.13.1"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.10.5",
+    "typescript": "^5.7.2"
+  }
+}
