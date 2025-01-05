@@ -3,16 +3,17 @@ import path from 'path';
 // import logger from 'morgan';
 
 import pool from "./config/ConnectionPool";
+import kafkaConfig from "./config/KafkaConfig";
 
 const app = express();
 const port = process.env.PORT;
 
 const poolPromise = pool();
+const kafka = kafkaConfig()
 
-app.listen(port, () => console.log(`server start one port: ${port}`))
+app.listen(port, () => console.log(`Server start one port: ${port}`))
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname, 'public')));
 
 module.exports = app;
