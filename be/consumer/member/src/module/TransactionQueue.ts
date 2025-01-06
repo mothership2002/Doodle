@@ -1,4 +1,5 @@
 
-class TransactionQueue {
+export class TransactionQueue {
 
 }
+
