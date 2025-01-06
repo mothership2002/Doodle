@@ -35,7 +35,9 @@ export class MessageQueueConsumer extends BaseModule {
             eachMessage: async ({topic, partition, message}) => {
                 this.log.info(`consume message - topic: ${topic}, partition: ${partition}`);
                 if (message?.value?.toString()) {
-
+                    console.log(
+                        message.key?.toString(),
+                        message.value?.toString());
                 }
                 // console.log(topic, partition, message?.value?.toString());
 
