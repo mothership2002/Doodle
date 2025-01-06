@@ -1,5 +1,6 @@
 package hyun.dashboard.publisher.common.module.custom;
 
+import hyun.dashboard.publisher.DashboardApplication;
 import hyun.dashboard.publisher.common.Constant;
 import jakarta.annotation.PostConstruct;
 import lombok.Getter;
@@ -30,7 +31,8 @@ public class PackageScanner extends Module {
     protected void construct() throws ClassNotFoundException {
         ClassPathScanningCandidateComponentProvider scanner = new ClassPathScanningCandidateComponentProvider(false);
         scanner.addIncludeFilter(new AnnotationTypeFilter(Table.class));
-        Set<BeanDefinition> candidateComponents = scanner.findCandidateComponents(Constant.ROOT_PACKAGE);
+        String packageName = DashboardApplication.class.getPackageName();
+        Set<BeanDefinition> candidateComponents = scanner.findCandidateComponents(DashboardApplication.class.getPackageName());
         for (BeanDefinition entity : candidateComponents) {
             domainClasses.add(Class.forName(entity.getBeanClassName()));
         }

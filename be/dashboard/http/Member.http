@@ -3,7 +3,7 @@ POST http://localhost:8080/api/v1/member
 Content-Type: application/json
 
 {
-  "account": "hello12234444",
+  "account": "hello12344144",
   "password": "world123123"
 }
 

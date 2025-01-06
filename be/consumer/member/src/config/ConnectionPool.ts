@@ -1,5 +1,8 @@
 import {Pool} from 'pg';
 import {resolve} from 'path';
+import winston from "winston";
+
+// 컨피그도 템플릿으로 빼서 관리할까????
 
 interface DatabaseInfo {
     host: string;
@@ -11,23 +14,26 @@ interface DatabaseInfo {
 
 let pool: Pool | null = null;
 
-const init = async (): Promise<DatabaseInfo> => {
+const init = async (log: winston.Logger): Promise<DatabaseInfo> => {
     const databaseInfoPath = process.env.DATABASE;
     if (databaseInfoPath) {
         const path = resolve(__dirname, '../' + databaseInfoPath);
-        console.log(`Database info path: ${path}`)
+        log.info(`Database info path: ${path}`)
         return await import(path);
     } else {
-        throw new Error('DATABASE environment variable is not defined.');
+        log.error('DATABASE environment variable is not defined.');
+        throw new Error('DATABASE environment variable is not defined.'); // handling point?
     }
 }
 
-const createPool = async (): Promise<Pool> => new Pool(await init());
+const createPool = async (log: winston.Logger): Promise<Pool> => new Pool(await init(log));
 
-const getPool = async () => {
+const getPool = async (log :winston.Logger) => {
+    log.info('Creating connection pool');
     if (!pool) {
-        pool = await createPool();
+        pool = await createPool(log);
     }
+    log.info('Connection pool created');
     return pool;
 }
 

@@ -17,19 +17,19 @@ import java.sql.SQLException;
 
 @Getter
 @Setter
-@Configuration
-@ConfigurationProperties("spring.h2")
+//@Configuration
+//@ConfigurationProperties("spring.h2")
 public class H2Config {
 
     private String port;
     private Server h2Server;
 
-    @EventListener(ContextRefreshedEvent.class)
+//    @EventListener(ContextRefreshedEvent.class)
     public void init() throws SQLException {
         h2Server = Server.createWebServer("-webPort", port, "-tcpAllowOthers").start();
     }
 
-    @EventListener(ContextClosedEvent.class)
+//    @EventListener(ContextClosedEvent.class)
     public void stop() {
         h2Server.stop();
     }

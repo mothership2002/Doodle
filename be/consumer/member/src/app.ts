@@ -1,17 +1,19 @@
 import express from 'express';
-import path from 'path';
-// import logger from 'morgan';
 
 import pool from "./config/ConnectionPool";
-import kafkaConfig from "./config/KafkaConfig";
+import kafkaConsumer from "./config/MessageQueueConsumer";
+import Logger from "./config/Logger";
 
 const app = express();
 const port = process.env.PORT;
 
-const poolPromise = pool();
-const kafka = kafkaConfig()
+const log = Logger.getLogger();
 
-app.listen(port, () => console.log(`Server start one port: ${port}`))
+const poolPromise = pool(log);
+const kafka = kafkaConsumer(log)
+
+
+app.listen(port, () => log.info(`Server start one port: ${port}`))
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
