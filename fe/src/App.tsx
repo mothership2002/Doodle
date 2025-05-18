@@ -1,15 +1,18 @@
 import React from "react";
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import Main from "./page/Main";
 import Login from "./page/Login";
 import Logout from "./page/Logout";
 import SignUp from "./page/SignUp";
+import PageTransition from "./component/PageTransition";
 
 
 const App: React.FC = () => {
+    const location = useLocation();
+
     return (
-        <div>
-            <Routes>
+        <PageTransition>
+            <Routes location={location} key={location.pathname}>
                 <Route path={`/`} element={<Main />} />
                 <Route path={`/login`} element={<Login />} />
                 <Route path={`/logout`} element={<Logout />} />
@@ -23,7 +26,7 @@ const App: React.FC = () => {
                 {/*</Route>*/}
                 {/*<Route path="*" element={<NotFound/>}/>*/}
             </Routes>
-        </div>
+        </PageTransition>
     )
 }
 

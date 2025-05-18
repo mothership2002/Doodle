@@ -2,28 +2,51 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 20px;
-    background-color: #f8f9fa;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 15px 25px;
+    background-color: white;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    transition: all 0.3s ease;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.header:hover {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
 }
 
 .logo {
     font-size: 24px;
-    font-weight: bold;
+    font-weight: 700;
+    color: #2c3e50;
+    text-decoration: none;
     transition: color 0.3s ease-in-out;
+    margin-right: 30px;
 }
 
 .logo:hover {
-    color: #007bff;
+    color: #3498db;
+    transform: translateY(-1px);
 }
 
 .search-bar {
     flex-grow: 1;
-    margin: 0 10px 0 10px;
-    padding: 5px 10px;
+    margin: 0 20px;
+    padding: 12px 15px;
     font-size: 16px;
-    border: 1px solid #ced4da;
-    border-radius: 4px;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+    height: 45px;
+    max-width: 500px;
+}
+
+.search-bar:focus {
+    border-color: #3498db;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
 }
 
 .nav-menu {
@@ -32,31 +55,57 @@
 }
 
 .nav-menu a {
-    margin: 0 10px;
-    color: #495057;
+    margin: 0 15px;
+    color: #2c3e50;
     font-size: 16px;
     text-decoration: none;
-    transition: color 0.3s ease;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    position: relative;
 }
 
 .nav-menu a:hover {
-    color: #007bff;
+    color: #3498db;
+}
+
+.nav-menu a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background-color: #3498db;
+    transition: width 0.3s ease;
+}
+
+.nav-menu a:hover::after {
+    width: 100%;
 }
 
 .user-menu {
     display: flex;
     align-items: center;
-    justify-content: center;
-    width: 300px;
+    justify-content: flex-end;
+    min-width: 200px;
 }
 
 .notification-icon {
-    margin-right: 10px;
+    margin-right: 15px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .notification-icon img {
     width: 24px;
     height: 24px;
+    transition: transform 0.3s ease;
+}
+
+.notification-icon:hover img {
+    transform: scale(1.1);
 }
 
 .login-button,
@@ -66,43 +115,152 @@
     margin: 0 10px;
     font-size: 16px;
     text-decoration: none;
-    transition: background-color 0.3s ease;
-    padding: 5px 10px;
-    border: none;
-    border-radius: 4px;
+    transition: all 0.3s ease;
+    padding: 10px 16px;
+    border: 1px solid transparent;
+    border-radius: 6px;
     cursor: pointer;
-    background-color: #3181d4;
-    color: white;
+    font-weight: 500;
+    display: inline-block;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
 }
 
 .login-button {
-    background-color: #007bff;
+    background-color: #3498db;
     color: white;
 }
 
 .signup-button {
-    background-color: #28a745;
+    background-color: #2ecc71;
     color: white;
 }
 
 .logout-button {
-    background-color: #dc3545;
+    background-color: #e74c3c;
+    color: white;
+}
+
+.profile-button {
+    background-color: #3498db;
+    color: white;
+}
+
+.profile-button:hover,
+.login-button:hover,
+.signup-button:hover,
+.logout-button:hover {
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    font-weight: 600;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    letter-spacing: 0.5px;
+    color: rgba(255, 255, 255, 1);
 }
 
 .profile-button:hover {
-    background-color: #1e5083;
+    background-color: #2980b9;
+    border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .login-button:hover {
-    background-color: #0051a8;
-    color: white;
+    background-color: #2980b9;
+    border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .signup-button:hover {
-    background-color: #12491e;
-    color: white;
+    background-color: #27ae60;
+    border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .logout-button:hover {
-    background-color: #91232e;
+    background-color: #c0392b;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.profile-button:active,
+.login-button:active,
+.signup-button:active,
+.logout-button:active {
+    transform: translateY(0);
+}
+
+/* Loading indicator for processing state */
+.loading-indicator {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba(52, 152, 219, 0.3);
+    border-radius: 50%;
+    border-top-color: #3498db;
+    animation: spin 1s ease-in-out infinite;
+    margin: 0 10px;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .header {
+        padding: 12px 15px;
+        flex-wrap: wrap;
+    }
+
+    .logo {
+        font-size: 20px;
+        margin-right: 20px;
+    }
+
+    .search-bar {
+        order: 3;
+        margin: 15px 0;
+        width: 100%;
+        flex-basis: 100%;
+        max-width: 100%;
+    }
+
+    .nav-menu {
+        margin-left: auto;
+    }
+
+    .nav-menu a {
+        margin: 0 8px;
+        font-size: 14px;
+    }
+
+    .user-menu {
+        min-width: auto;
+    }
+
+    .login-button,
+    .signup-button,
+    .logout-button,
+    .profile-button {
+        padding: 8px 12px;
+        font-size: 14px;
+        margin: 0 5px;
+        font-weight: 600; /* Slightly bolder text for better visibility on small screens */
+    }
+
+    /* Ensure text remains visible on hover for small screens */
+    .profile-button:hover,
+    .login-button:hover,
+    .signup-button:hover,
+    .logout-button:hover {
+        text-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
+    }
+}
+
+@media (max-width: 480px) {
+    .nav-menu a:not(.notification-icon) {
+        display: none;
+    }
+
+    .user-menu {
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
 }

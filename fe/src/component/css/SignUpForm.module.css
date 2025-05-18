@@ -4,67 +4,119 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh;
+    min-height: 100vh;
+    padding: 20px;
     background-color: #f0f2f5;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    box-sizing: border-box;
+}
+
+.logo {
+    font-size: 3.5rem;
+    cursor: pointer;
+    color: #2c3e50;
+    text-decoration: none;
+    font-weight: 700;
+    transition: color 0.3s ease-in-out;
+    margin-bottom: 15px;
+}
+
+.logo:hover {
+    color: #3498db;
 }
 
 .signup-form {
     background-color: white;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    width: 400px; /* Increased the width to allow more space */
+    padding: 35px 40px;
+    border-radius: 12px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+    width: 420px;
+    max-width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 15px;
+    transition: all 0.3s ease;
+}
+
+@media (max-width: 480px) {
+    .signup-form {
+        width: 100%;
+        padding: 25px 20px;
+    }
+
+    .logo {
+        font-size: 2.8rem;
+        margin-bottom: 10px;
+    }
+
+    .input-with-button {
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .check-button {
+        width: 100%;
+    }
+}
+
+.signup-form:hover {
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
 }
 
 .signup-form h2 {
-    margin-bottom: 20px;
-    color: #333;
-    font-size: 24px;
+    color: #2c3e50;
+    font-size: 28px;
+    font-weight: 600;
+    text-align: center;
+    margin: 0;
 }
 
 .input-with-button {
     display: flex;
-    align-items: flex-start;
+    flex-direction: row;
     width: 100%;
-    padding: 10px;
+    gap: 10px;
 }
 
 .input-with-button input {
-    flex-grow: 1;
-    padding: 12px;
+    flex: 1;
+    padding: 12px 15px;
     font-size: 16px;
-    border: 1px solid #ced4da;
-    border-radius: 4px;
-    margin-right: 10px;
-    transition: border-color 0.3s ease;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    margin-bottom: 0;
+    transition: all 0.3s ease;
     box-sizing: border-box;
+    height: 45px;
 }
 
 .input-with-button input:focus {
-    border-color: #007bff;
+    border-color: #3498db;
     outline: none;
+    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
 }
 
 .check-button {
-    padding: 12px 15px; /* Adjusted padding to match input height */
+    padding: 12px 15px;
     font-size: 14px;
-    background-color: #007bff;
+    background-color: #3498db;
     color: white;
     border: none;
-    border-radius: 4px;
+    border-radius: 6px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
-    height: 75%; /* Ensures button height matches input field */
+    transition: all 0.3s ease;
+    width: auto;
+    min-width: 100px;
     white-space: nowrap;
-    margin-bottom: 10px;
+    font-weight: 500;
+    height: 45px;
 }
 
 
 .check-button:hover {
-    background-color: #0056b3;
+    background-color: #2980b9;
+    transform: translateY(-1px);
 }
 
 input[type="text"],
@@ -72,62 +124,134 @@ input[type="password"],
 input[type="email"] {
     height: 45px;
     width: 100%;
-    padding: 12px;
+    padding: 12px 15px;
     font-size: 16px;
-    border: 1px solid #ced4da;
-    border-radius: 4px;
-    transition: border-color 0.3s ease;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    transition: all 0.3s ease;
     box-sizing: border-box;
+    margin: 0;
 }
 
 input[type="text"]:focus,
 input[type="password"]:focus,
 input[type="email"]:focus {
-    border-color: #007bff;
+    border-color: #3498db;
     outline: none;
+    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
 }
 
 .available {
-    color: green;
-    font-size: 12px;
-    margin-bottom: 15px;
+    color: #27ae60;
+    font-size: 13px;
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding-left: 5px;
 }
 
 .not-available {
-    color: red;
-    font-size: 12px;
-    margin-bottom: 15px;
+    color: #e74c3c;
+    font-size: 13px;
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding-left: 5px;
 }
 
 .submit-button {
-    padding: 12px;
+    padding: 12px 20px;
     font-size: 16px;
+    font-weight: 600;
     color: white;
-    background-color: #007bff;
+    background-color: #3498db;
     border: none;
-    border-radius: 4px;
+    border-radius: 6px;
     cursor: pointer;
     width: 100%;
-    transition: background-color 0.3s ease;
-    margin-top: 10px; /* Add margin to separate from the fields above */
+    transition: all 0.3s ease;
+    height: 50px;
+    letter-spacing: 0.5px;
 }
 
 .submit-button:hover {
-    background-color: #0056b3;
+    background-color: #2980b9;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.submit-button:active {
+    transform: translateY(0);
 }
 
 .signup-footer {
-    margin-top: 15px;
-    font-size: 14px;
-    color: #666;
+    font-size: 15px;
+    color: #7f8c8d;
+    text-align: center;
+    width: 100%;
 }
 
 .signup-footer a {
-    color: #007bff;
+    color: #3498db;
     text-decoration: none;
-    transition: color 0.3s ease;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    margin-left: 5px;
 }
 
 .signup-footer a:hover {
-    color: #0056b3;
+    color: #2980b9;
+    text-decoration: underline;
+}
+
+.verification-section {
+    width: 100%;
+}
+
+.verification-input-with-timer {
+    position: relative;
+    width: 100%;
+}
+
+.verification-input-with-timer input {
+    width: 100%;
+    padding-right: 70px; /* Make room for the timer */
+}
+
+.timer-display {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 14px;
+    font-weight: 600;
+    color: #e74c3c;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 2px 8px;
+    border-radius: 4px;
+}
+
+.verification-hint {
+    display: block;
+    font-size: 13px;
+    color: #7f8c8d;
+    text-align: left;
+    padding-left: 5px;
+    font-style: italic;
+}
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+.form-group {
+    width: 100%;
+    margin: 0;
 }

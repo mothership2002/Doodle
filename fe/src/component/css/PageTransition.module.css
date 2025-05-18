@@ -1,0 +1,51 @@
+.page-transition {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* Ensure content takes up available space */
+.page-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* Fix for the 11 o'clock to center movement */
+:global(#root) {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+:global(html) {
+  scrollbar-gutter: stable; /* Modern browsers - reserve space for scrollbar */
+  overflow-y: auto; /* Allow scrolling but hide scrollbar */
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+:global(html::-webkit-scrollbar) {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+:global(body) {
+  overflow-x: hidden; /* Prevent horizontal scrolling during animations */
+  margin-right: 0 !important; /* Prevent margin adjustments when scrollbar appears/disappears */
+  width: 100vw; /* Ensure consistent width */
+  max-width: 100%; /* Prevent horizontal overflow */
+  position: relative; /* Create a new stacking context */
+}
+
+/* Animation performance improvements for page content */
+.page-content {
+  will-change: opacity;
+  backface-visibility: hidden;
+  transform-style: preserve-3d; /* Helps prevent flickering in some browsers */
+  -webkit-font-smoothing: antialiased; /* Smoother text during animations */
+}

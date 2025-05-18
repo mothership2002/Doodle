@@ -11,6 +11,8 @@ import {jwtDecode} from "jwt-decode";
 import ResponseUtils from "../utils/ResponseUtils";
 import {ApiConnector} from "../api/ApiConnector";
 import Response from "../model/http/Response";
+import styles from "../component/css/MainLayout.module.css";
+import useCssUtil from "../hook/useCssUtil";
 
 const hasToken = (type: localStorageKey) => {
     return StringUtils.hasText(localStorage.getItem(type));
@@ -26,6 +28,7 @@ const Main = () => {
     const api: ApiConnector = useApi();
     const auth = useSelector((state: RootState) => state.auth);
     const dispatch: AppDispatch = useDispatch();
+    const getStyle = useCssUtil(styles);
 
     const [isProcessing, setIsProcessing] = useState<boolean>(false);
     const [isAccessAble, setIsAccessAble] = useState<boolean>(true);
@@ -81,21 +84,23 @@ const Main = () => {
 
     useEffect(() => {
         setIsProcessing(true);
-        // init().then(r => setIsProcessing(isProcessing));
+        // init().then(r => setIsProcessing(false));
         // mock up
-        init().then(r => setTimeout(() => setIsProcessing(isProcessing), 300));
+        init().then(r => setTimeout(() => setIsProcessing(false), 300));
     }, [auth.accessToken, auth.refreshToken, api, dispatch]);
 
     return (
-        <>
+        <div className={getStyle('main-layout')}>
             <Header isProcessing={isProcessing}/>
-            <p>access : {auth.accessToken}</p>
-            <p>refresh : {auth.refreshToken}</p>
-            <p>user : {JSON.stringify(auth.user)}</p>
-            <p>hello world</p>
-            <p>access able : {isAccessAble.toString()}</p>
+            <div className={getStyle('content')}>
+                <p>access : {auth.accessToken}</p>
+                <p>refresh : {auth.refreshToken}</p>
+                <p>user : {JSON.stringify(auth.user)}</p>
+                <p>hello world</p>
+                <p>access able : {isAccessAble.toString()}</p>
+            </div>
             <Footer/>
-        </>
+        </div>
     )
 }
 
